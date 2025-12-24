@@ -17,6 +17,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: transparent; /* Removes blue tap box on mobile */
+}
+
+html {
+    background-color: var(--bg-color); /* Ensures overscroll on mobile is black */
 }
 
 body {
@@ -27,6 +32,8 @@ body {
     display: flex;
     justify-content: center;
     padding: 20px;
+    -webkit-font-smoothing: antialiased; /* Crisper text on Mobile Safari */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -340,7 +347,7 @@ h2 {
     color: #fff;
 }
 
-/* FORM STYLES */
+/* FORM STYLES - MOBILE FIXES */
 .form-card { background: #222; }
 
 .input-group { margin-bottom: 20px; }
@@ -353,12 +360,17 @@ label {
     font-size: 0.9rem;
 }
 
+input, textarea, button {
+    -webkit-appearance: none; /* Removes Apple's default 3D/white styling */
+    appearance: none;
+    border-radius: 10px; /* Forces rounded corners on iOS */
+}
+
 input, textarea {
     width: 100%;
     padding: 14px;
     background-color: #2e2e2e;
     border: 2px solid transparent;
-    border-radius: 10px;
     color: #fff;
     font-family: inherit;
     font-size: 1rem;
@@ -377,7 +389,6 @@ input:focus, textarea:focus {
     background: linear-gradient(45deg, var(--accent-orange), var(--accent-gold));
     color: #121212;
     border: none;
-    border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
