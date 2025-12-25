@@ -238,6 +238,52 @@
             </div>
         </section>
 
+        <section class="card gallery-card fade-in delay-5">
+            <h2>The Gallery</h2>
+            <p>If you see me out and about, let's take a picture together!</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/20251224_131821.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/20251224_125949.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/20251224_150250.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_4977.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/20251224_133942.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_4978.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/20251224_142225.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/20251224_142214.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/IMG_4976.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/20251224_143908.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/20251224_131843.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+            </div>
+        </section>
+
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+            <span class="close-btn">&times;</span>
+            <img class="lightbox-img" id="lightbox-img">
+        </div>
+
         <section class="card form-card fade-in delay-5">
             <h2>📝 Cast Your Vote</h2>
             <p>Let me know if you can make it!</p>
@@ -256,7 +302,7 @@
 
                 <div class="input-group">
                     <label for="message">Anything else?</label>
-                    <textarea id="message" name="message" rows="3" placeholder="Add any comments, contact info, or juicy gossip about Jakub... (Optional!)"></textarea>
+                    <textarea id="message" name="message" rows="3" placeholder="Optional: Add any comments, contact info, or juicy gossip..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-main">Send Info 🚀</button>
@@ -304,7 +350,19 @@
         
         updateSchedule();
 
-        // 2. FORM HANDLING
+        // 2. LIGHTBOX FUNCTIONS
+        function openLightbox(imgElement) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imgElement.src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // 3. FORM HANDLING
         const form = document.getElementById('collab-form');
         const thankYou = document.getElementById('form-thank-you');
 
@@ -341,7 +399,7 @@
             }
         });
 
-        // 3. COUNTDOWN TIMER (DAYS ONLY)
+        // 4. COUNTDOWN TIMER
         const deadline = new Date("Jan 10, 2026 23:59:59").getTime();
         const timerElement = document.getElementById("timer");
 
