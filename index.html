@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jakub's Farewell</title>
+    <title>Jakubs Disney Gallery</title>
     <meta name="description" content="Coordination for Jakub's Farewell Group Picture at Kohl's before heading to Disney!">
     
     <meta name="theme-color" content="#121212">
@@ -14,6 +14,55 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Navigation Arrows */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px;
+            user-select: none;
+            z-index: 10001;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(240, 147, 43, 0.9); /* Orange accent on hover */
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .nav-btn {
+                font-size: 2rem;
+                width: 50px;
+                height: 50px;
+                background: rgba(0,0,0,0.6); 
+                /* We keep buttons visible as a hint, but swiping is primary */
+            }
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
+            
+            .lightbox-img {
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -23,7 +72,7 @@
             <div class="hero-content">
                 
                 <a href="#gallery-section" class="update-badge">
-                    📸 New Pics Added 12/29! 👇
+                    📸 NEW PICS ADDED 1/3! 👇
                 </a>
 
                 <h1>Jakub's Farewell Photo! <span class="header-emoji">🏰</span></h1>
@@ -248,53 +297,70 @@
             <p>If you see me out and about, let's take a picture together!</p>
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="images/20251224_131821.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/97iLt85.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251224_125949.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/ZavVDrO.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251224_150250.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/thH8skD.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/IMG_4977.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/6ieO06O.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251224_133942.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/6mo1KCP.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/IMG_4978.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/PImqfkG.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251224_142225.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/mDpQiNK.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251224_142214.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/QJMlUgz.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/IMG_4976.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/JNRzv0J.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251224_143908.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/2vUSNOC.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251224_131843.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/xzZq8gL.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251228_135519.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/Zigbi4l.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251228_113200.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/hqUfVNx.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
                 <div class="gallery-item">
-                    <img src="images/20251229_110503.jpg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                    <img src="https://i.imgur.com/5IN1b2A.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/WKI0deb.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/rGoPnQg.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/DqVAni2.png" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/F4W2lB4.png" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/LmQXwtm.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
                 </div>
             </div>
         </section>
 
-        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-            <span class="close-btn">&times;</span>
+        <div id="lightbox" class="lightbox" onclick="handleLightboxClick(event)">
+            <span class="close-btn" onclick="closeLightbox()">&times;</span>
+            <span class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</span>
             <img class="lightbox-img" id="lightbox-img">
+            <span class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</span>
         </div>
 
         <section class="card form-card fade-in delay-5">
@@ -315,7 +381,7 @@
 
                 <div class="input-group">
                     <label for="message">Anything else?</label>
-                    <textarea id="message" name="message" rows="3" placeholder="Add any comments, contact info, or juicy gossip about Jakub... (Optional!)"></textarea>
+                    <textarea id="message" name="message" rows="3" placeholder="Add any comments, contact info, or juicy gossip... (Optional!)"></textarea>
                 </div>
 
                 <button type="submit" class="btn-main">Send Info 🚀</button>
@@ -364,15 +430,77 @@
         updateSchedule();
 
         // 2. LIGHTBOX FUNCTIONS
+        let currentIndex = 0;
+        
         function openLightbox(imgElement) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
+            
+            const allImages = Array.from(document.querySelectorAll('.gallery-item img'));
+            currentIndex = allImages.indexOf(imgElement);
+            
             lightboxImg.src = imgElement.src;
             lightbox.style.display = 'flex';
         }
 
+        function changeImage(direction) {
+            const allImages = Array.from(document.querySelectorAll('.gallery-item img'));
+            
+            currentIndex += direction;
+
+            if (currentIndex >= allImages.length) {
+                currentIndex = 0;
+            } else if (currentIndex < 0) {
+                currentIndex = allImages.length - 1;
+            }
+
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = allImages[currentIndex].src;
+        }
+
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function handleLightboxClick(event) {
+            if (event.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        }
+        
+        // Keyboard Support
+        document.addEventListener('keydown', function(event) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.style.display === 'flex') {
+                if (event.key === 'ArrowLeft') changeImage(-1);
+                if (event.key === 'ArrowRight') changeImage(1);
+                if (event.key === 'Escape') closeLightbox();
+            }
+        });
+
+        // --- SWIPE SUPPORT FOR MOBILE ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const lightbox = document.getElementById('lightbox');
+
+        lightbox.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        lightbox.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            // Threshold ensures we don't change image on a tiny accidental tap-drag
+            if (touchEndX < touchStartX - 50) {
+                changeImage(1); // Swipe Left -> Next Image
+            }
+            if (touchEndX > touchStartX + 50) {
+                changeImage(-1); // Swipe Right -> Prev Image
+            }
         }
 
         // 3. FORM HANDLING
