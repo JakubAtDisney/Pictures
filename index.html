@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jakubs Disney Gallery</title>
-    <meta name="description" content="Coordination for Jakub's Farewell Group Picture at Kohl's before heading to Disney!">
+    <title>Jakub's Internship Gallery</title>
+    <meta name="description" content="A gallery of my adventures from Kohl's to Disney World!">
     
     <meta name="theme-color" content="#121212">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,7 +16,336 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* Navigation Arrows */
+        /* SHARE BUTTON & MODAL */
+        .share-btn-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .share-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--accent-gold);
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .share-btn:hover {
+            background: rgba(240, 147, 43, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* BACK TO TOP BUTTON */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-blue);
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 999;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, opacity 0.2s;
+            opacity: 0.9;
+        }
+
+        #back-to-top:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        /* Share Modal */
+        .share-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10005;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .share-content {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            border: 1px solid #444;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .share-content h3 { color: var(--accent-gold); margin-bottom: 20px; }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 4px solid #fff;
+        }
+
+        .share-link-box {
+            background: #111;
+            padding: 10px;
+            border-radius: 8px;
+            color: #aaa;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            word-break: break-all;
+            border: 1px solid #333;
+            user-select: text; 
+        }
+
+        .share-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn { background: #333; color: #fff; }
+        .native-share-btn { background: var(--accent-blue); color: #000; }
+
+        .close-share {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #888;
+            cursor: pointer;
+        }
+
+        /* --- MONTH FILTER MENU --- */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 5px;
+            margin-bottom: 30px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; 
+        }
+        .filter-bar::-webkit-scrollbar { display: none; } 
+
+        .filter-chip {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #ccc;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-chip.active {
+            background: var(--accent-gold);
+            color: #000;
+            font-weight: 700;
+            border-color: var(--accent-gold);
+        }
+
+        .hidden-post { display: none !important; }
+
+        /* --- BOOKMARK TOAST --- */
+        .bookmark-toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--accent-blue);
+            padding: 15px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 10002;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 90%;
+            max-width: 400px;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-content {
+            flex-grow: 1;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* --- EXISTING STYLES --- */
+        .blog-post {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border: 1px solid #444;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .post-header {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .post-title {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .post-date {
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+        }
+
+        .post-description {
+            color: #ddd;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .featured-img-container img {
+            display: block;
+            width: 100%;
+            height: auto; 
+            object-fit: contain; 
+            border-radius: 12px;
+            border: 2px solid var(--accent-blue);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .featured-img-container img:hover { transform: scale(1.02); }
+
+        .memory-feed { display: flex; flex-direction: column; gap: 30px; }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: #000;
+        }
+        
+        .memory-grid.large-collection { grid-template-columns: repeat(3, 1fr); }
+
+        .memory-media {
+            position: relative;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            aspect-ratio: 1/1; 
+        }
+        
+        .memory-media.full-width { grid-column: span 2; aspect-ratio: 16/9; }
+
+        .memory-media img, .memory-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .memory-media:hover img { opacity: 0.8; }
+
+        .memory-content { padding: 20px; }
+
+        .memory-date {
+            color: var(--accent-orange);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .memory-text { color: #eee; font-size: 1rem; line-height: 1.5; }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-top: 25px;
+            margin-bottom: 40px;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            max-width: 90%;
+        }
+
+        .info-row { display: flex; align-items: center; gap: 12px; color: #e0e0e0; font-size: 1.05rem; font-weight: 500; }
+        .info-icon { font-size: 1.4rem; min-width: 30px; text-align: center; }
+        .info-highlight { color: var(--accent-blue); font-weight: 700; display: block; margin-bottom: 2px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
+
         .nav-btn {
             position: absolute;
             top: 50%;
@@ -37,30 +366,24 @@
             justify-content: center;
             transition: all 0.2s ease;
         }
-
-        .nav-btn:hover {
-            background: rgba(240, 147, 43, 0.9); /* Orange accent on hover */
-            transform: translateY(-50%) scale(1.1);
-        }
-
+        .nav-btn:hover { background: rgba(240, 147, 43, 0.9); transform: translateY(-50%) scale(1.1); }
         .prev-btn { left: 20px; }
         .next-btn { right: 20px; }
 
-        /* Mobile Optimization */
         @media (max-width: 768px) {
-            .nav-btn {
-                font-size: 2rem;
-                width: 50px;
-                height: 50px;
-                background: rgba(0,0,0,0.6); 
-                /* We keep buttons visible as a hint, but swiping is primary */
-            }
+            /* Fix for Button Overlap: Push content down significantly on mobile */
+            .hero-screen { padding-top: 80px; } 
+            
+            .nav-btn { font-size: 2rem; width: 50px; height: 50px; background: rgba(0,0,0,0.6); }
             .prev-btn { left: 10px; }
             .next-btn { right: 10px; }
-            
-            .lightbox-img {
-                max-width: 100%;
-            }
+            .lightbox-img, .lightbox-video { max-width: 100%; max-height: 80vh; }
+            h1 { font-size: 2.2rem; } 
+            .memory-grid.large-collection { grid-template-columns: repeat(3, 1fr); }
+            .memory-grid { grid-template-columns: repeat(2, 1fr); }
+            .info-card { padding: 15px; width: 100%; }
+            .info-row { font-size: 0.95rem; }
+            .share-btn-container { top: 15px; right: 15px; }
         }
     </style>
 </head>
@@ -68,222 +391,61 @@
 
     <div class="container">
         
-        <header class="hero-screen fade-in">
+        <div class="share-btn-container">
+            <button class="share-btn" onclick="openShareModal()">
+                <span>🔗 Share</span>
+            </button>
+        </div>
+
+        <header class="hero-screen" style="min-height: 50vh;">
             <div class="hero-content">
                 
-                <a href="#gallery-section" class="update-badge">
-                    📸 NEW PICS ADDED 1/3! 👇
+                <a href="#main-photo" class="update-badge">
+                    📸 New Pics Added Jan 5 👇
                 </a>
 
-                <h1>Jakub's Farewell Photo! <span class="header-emoji">🏰</span></h1>
-                <p class="tagline">Lets all take a group picture together before I leave for my Internship</p>
+                <h1>Jakub's Internship Gallery <span class="header-emoji">🏰</span></h1>
                 
-                <div id="countdown-box">
-                    <p class="countdown-label">Time left to organize:</p>
-                    <div id="timer">Loading...</div>
-                    <p class="countdown-sub">Deadline: Jan 10, 2026 <br>(The sooner the better!)</p>
+                <p class="tagline">Check back here for updates from Florida</p>
+                
+                <div class="info-card">
+                    <div class="info-row">
+                        <span class="info-icon">🎓</span>
+                        <div>
+                            <span class="info-highlight">Program</span>
+                            Disney College Program Internship
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="info-icon">📍</span>
+                        <div>
+                            <span class="info-highlight">Location</span>
+                            Walt Disney World, Orlando FL
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="info-icon">📅</span>
+                        <div>
+                            <span class="info-highlight">Duration</span>
+                            Jan 12 - Aug 13, 2026
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="scroll-hint">
-                <p class="casual-note">Feel free to read through this when you have free time, doesn't have to be right away!</p>
-                <div class="arrow">▼ Scroll for details ▼</div>
             </div>
+            
+            <div class="arrow">▼ Scroll Down For The Photo Gallery ▼</div>
         </header>
 
-        <section class="tldr-grid fade-in delay-1">
-            <div class="tldr-card">
-                <span class="icon">✈️</span>
-                <div class="tldr-text">
-                    <h3>The Internship</h3>
-                    <p>Jan 12 - Aug 13, 2026 at Disney World in Florida.</p>
-                </div>
-            </div>
-            <div class="tldr-card">
-                <span class="icon">📸</span>
-                <div class="tldr-text">
-                    <h3>The Plan</h3>
-                    <p>Let's take one big group photo while we still can!</p>
-                </div>
-            </div>
-            <div class="tldr-card">
-                <span class="icon">📅</span>
-                <div class="tldr-text">
-                    <h3>Last Days</h3>
-                    <p>My last shift is Jan 10th!</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="card highlight-card fade-in delay-2">
-            <div class="card-header">
-                <h2>🏆 Top Voted Dates</h2>
-            </div>
-            <p>I'll update this list as the votes come in. Feel free to mention it to me at work anytime too!</p>
-            <div class="warning-box">
-                ⚠️ <strong>Deadline:</strong> The date MUST be before <strong>Jan 10, 2026</strong>.
-            </div>
-            
-            <ul class="ranking-list">
-                <li class="rank-1">
-                    <span class="rank-icon">🥇</span> 
-                    <span class="date-text">Jan 5</span> 
-                    <span class="vote-count">1 Vote</span>
-                </li>
-                <li class="rank-2">
-                    <span class="rank-icon">🥈</span> 
-                    <span class="date-text">TBD</span> 
-                    <span class="vote-count">--</span>
-                </li>
-                <li class="rank-3">
-                    <span class="rank-icon">🥉</span> 
-                    <span class="date-text">TBD</span> 
-                    <span class="vote-count">--</span>
-                </li>
-            </ul>
-            <p class="small-text"><em>Haven't voted yet? Scroll down!</em> 👇</p>
-        </section>
-
-        <section class="card fade-in delay-3">
-            <h2>📅 My Availability</h2>
-            <p>Here is my schedule so far, it's subject to change anytime so I'll update the days once the new schedule drops!</p>
-            
-            <div class="legend">
-                <span class="dot work"></span> Work
-                <span class="dot off"></span> Off
-                <span class="dot pending"></span> TBD
-                <span class="dot busy"></span> Busy
-            </div>
-
-            <div class="schedule-grid-full" id="calendar-grid">
-                <div class="cal-day work" data-date="2025-12-24">
-                    <span class="cal-date">Wed, Dec 24</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-                <div class="cal-day off" data-date="2025-12-25">
-                    <span class="cal-date">Thu, Dec 25</span>
-                    <span class="cal-status">Off ⚪</span>
-                    <span class="cal-note">(Xmas)</span>
-                </div>
-                <div class="cal-day work" data-date="2025-12-26">
-                    <span class="cal-date">Fri, Dec 26</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-                <div class="cal-day work" data-date="2025-12-27">
-                    <span class="cal-date">Sat, Dec 27</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-                <div class="cal-day work" data-date="2025-12-28">
-                    <span class="cal-date">Sun, Dec 28</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-                <div class="cal-day work" data-date="2025-12-29">
-                    <span class="cal-date">Mon, Dec 29</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-                <div class="cal-day off" data-date="2025-12-30">
-                    <span class="cal-date">Tue, Dec 30</span>
-                    <span class="cal-status">Off ⚪</span>
-                </div>
-                <div class="cal-day work" data-date="2025-12-31">
-                    <span class="cal-date">Wed, Dec 31</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-                
-                <div class="cal-day work" data-date="2026-01-01">
-                    <span class="cal-date">Thu, Jan 01</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-                <div class="cal-day work" data-date="2026-01-02">
-                    <span class="cal-date">Fri, Jan 02</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-                
-                <div class="cal-day off" data-date="2026-01-03">
-                    <span class="cal-date">Sat, Jan 03</span>
-                    <span class="cal-status">Off ⚪</span>
-                </div>
-
-                <div class="cal-day work" data-date="2026-01-04">
-                    <span class="cal-date">Sun, Jan 04</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-
-                <div class="cal-day work" data-date="2026-01-05">
-                    <span class="cal-date">Mon, Jan 05</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-
-                <div class="cal-day off" data-date="2026-01-06">
-                    <span class="cal-date">Tue, Jan 06</span>
-                    <span class="cal-status">Off ⚪</span>
-                </div>
-
-                <div class="cal-day work" data-date="2026-01-07">
-                    <span class="cal-date">Wed, Jan 07</span>
-                    <span class="cal-status">Work 🟢</span>
-                </div>
-
-                <div class="cal-day off" data-date="2026-01-08">
-                    <span class="cal-date">Thu, Jan 08</span>
-                    <span class="cal-status">Off ⚪</span>
-                </div>
-
-                <div class="cal-day busy" data-date="2026-01-09">
-                    <span class="cal-date">Fri, Jan 09 *</span>
-                    <span class="cal-status">Eye Appt 👓</span>
-                    <span class="cal-note">12:30pm - 1:30pm</span>
-                    <span class="cal-note special">(Can work before/after!)</span>
-                </div>
-                
-                <div class="cal-day work" data-date="2026-01-10">
-                    <span class="cal-date">Sat, Jan 10</span>
-                    <span class="cal-status">Work 🟢</span>
-                    <span class="cal-note special">(Last Day!)</span>
-                </div>
-
-                <div class="cal-day final" data-date="2026-01-11">
-                    <span class="cal-date">Sun, Jan 11</span>
-                    <span class="cal-status">Flight ✈️</span>
-                    <span class="cal-note">Bye!</span>
-                </div>
-
-                <div class="cal-day disney" data-date="2026-01-12">
-                    <span class="cal-date">Mon, Jan 12</span>
-                    <span class="cal-status">Disney! 🏰</span>
-                    <span class="cal-note">First Day of Internship</span>
-                </div>
-            </div>
-
-            <p class="note">
-                <strong>📍 Note:</strong> I live 5 mins away, so I can come in for the picture even on days I'm not working!
-            </p>
-        </section>
-
-        <section class="card howdy-card fade-in delay-4">
+        <section class="card howdy-card fade-in delay-1">
             <div class="card-header-custom">
-                <h2>👋 Howdy Howdy, Jakub here</h2>
+                <h2>👋 Howdy Howdy, Jakub Here!</h2>
             </div>
-            
             <div class="story-content">
                 <p>
-                    Rumors are spreading around the store that my seasonal time here at Kohls is coming to an end. Yes, for now at least! I've had such a lovely time working here while getting to know each and every one of you.
-                </p>
-                <p>
-                    I may not remember everybody's name yet, but I do know that in these 4 months alone, each one of you have made working here a lot of fun for me. So as cheesy as it sounds, it would be a hoot if we can all plan:
-                </p>
-
-                <div class="plan-box">
-                    <p class="plan-main">
-                        One day to spend at least a few minutes at Kohls to take a group picture to remember our time together.
-                    </p>
-                    <p class="plan-sub">
-                        ✨ Wear anything you want, be it fancy or everyday clothes at work, its up to you.
-                    </p>
-                </div>
-
-                <p>
-                    Eitherway, if anyone does show up then I will frame the photo and bring it to Florida with me. If you can't make it or don't want to, then that is ok too. This isn't part of work and nobody is forcing you to do this, it's just my idea.
+                    Thank You everyone that made working at Kohls a spiffy experience during my time as a seasonal employee. I had fun learning new things and it was all thanks to the people I worked with each day that made it a hoot.
                 </p>
                 
                 <div class="fun-fact">
@@ -292,114 +454,264 @@
             </div>
         </section>
 
-        <section id="gallery-section" class="card gallery-card fade-in delay-5">
-            <h2>The Gallery</h2>
-            <p>If you see me out and about, let's take a picture together!</p>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/97iLt85.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/ZavVDrO.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/thH8skD.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/6ieO06O.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/6mo1KCP.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/PImqfkG.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/mDpQiNK.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/QJMlUgz.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/JNRzv0J.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/2vUSNOC.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/xzZq8gL.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/Zigbi4l.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/hqUfVNx.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/5IN1b2A.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/WKI0deb.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/rGoPnQg.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/DqVAni2.png" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/F4W2lB4.png" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/LmQXwtm.jpeg" alt="Coworker Selfie" loading="lazy" onclick="openLightbox(this)">
-                </div>
+        <div class="filter-bar fade-in delay-2">
+            <button class="filter-chip active" onclick="filterPosts('all')">All Memories</button>
+            <button class="filter-chip" onclick="filterPosts('jan')">Jan 2026</button>
+            <button class="filter-chip" onclick="filterPosts('dec')">Dec 2025</button>
+            <button class="filter-chip" onclick="filterPosts('nov')">Nov 2025</button>
+            <button class="filter-chip" onclick="filterPosts('oct')">Oct 2025</button>
+        </div>
+
+        <article id="main-photo" class="blog-post filter-item fade-in delay-2" data-month="jan">
+            <div class="post-header">
+                <h3 class="post-title">Kohls Group Photo</h3>
+                <span class="post-date">January 5, 2026</span>
             </div>
-        </section>
+            <p class="post-description">
+                I get shy asking for photos with other people as it always feels like I'm bothering them. Luckily we were all able to finally take a Group Photo Together before I leave for Florida. Thank You Everbody that joined!
+            </p>
+            <div class="featured-img-container gallery-item">
+                <img src="images/Kohls Group Photo, Thanks Everyone.png" alt="Kohls Group Photo" loading="lazy" onclick="openLightbox(this)">
+            </div>
+        </article>
+
+        <article class="blog-post fade-in delay-3">
+            <div class="post-header">
+                <h3 class="post-title">Memories from Kohls</h3>
+                <span class="post-date">OCT 2025 - JAN 2026</span>
+            </div>
+            <p class="post-description">
+                Here are some pictures taken throughout my time working seasonal at Kohls.
+            </p>
+            
+            <div class="memory-feed">
+
+                <div class="memory-card filter-item" data-month="jan dec">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/97iLt85.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ZavVDrO.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/thH8skD.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/6ieO06O.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/6mo1KCP.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/PImqfkG.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/mDpQiNK.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/QJMlUgz.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/JNRzv0J.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/2vUSNOC.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/xzZq8gL.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Zigbi4l.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/hqUfVNx.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/5IN1b2A.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/WKI0deb.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/rGoPnQg.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/DqVAni2.png" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/F4W2lB4.png" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/LmQXwtm.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Dec 2025 - Jan 2026</span>
+                        <p class="memory-text">Here is a picture that I was able to take with everyone at Kohls just in case the Group Picture was never going to happen.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media full-width gallery-item">
+                        <img src="https://i.imgur.com/QpgRWMB.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 5, 2026</span>
+                        <p class="memory-text">Nallely made some of her world famous hot chocolate (champurrado) again and I was finally able to try some (it was very good) as well as some very tasty Rosca de Reyes / King Bread.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="dec">
+                    <div class="memory-media full-width gallery-item">
+                        <img src="https://i.imgur.com/U1VwavJ.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Christmas 2025</span>
+                        <p class="memory-text">I brought my Sonic Ugly Sweater back to work and was even able to borrow Nancy's cowboy hat too.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="dec">
+                    <div class="memory-grid">
+                        <div class="memory-media full-width gallery-item"><video src="https://i.imgur.com/TWHAAYx.mp4" onclick="openLightbox(this)"></video></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/WVzFTyV.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Owwc5sY.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Dec 22, 2025</span>
+                        <p class="memory-text">
+                            <strong>The Pot Luck:</strong><br>
+                            I asked my mom to make Slovak Pierogis to share. I tried almost everything (except Nallely's hot chocolate) and it was all very good.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="dec">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/934ESzv.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/I5edL5u.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Dec 22, 2025</span>
+                        <p class="memory-text">What remand of my moms pierogi after the Potluck finished, everyone (except Lizette) said they were really good and to thank my mom. Here is the small note I wrote with them.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="dec">
+                    <div class="memory-media full-width gallery-item">
+                        <img src="https://i.imgur.com/fuZKspn.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Dec 21, 2025</span>
+                        <p class="memory-text">A Customer brought his Parrot named Chicken leg to the store.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="dec">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/mSzxGWq.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/g4INj3m.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Dec 5, 2025</span>
+                        <p class="memory-text">Therese made some soup, which was really good so I took a picture.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="nov">
+                    <div class="memory-media full-width gallery-item">
+                        <img src="https://i.imgur.com/xkK3T6V.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Nov 23, 2025</span>
+                        <p class="memory-text">A Customer bought 16 of these Keurig K Duo Coffee Machines for a $99 Black Friday Deal from the normal $260 price.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="nov">
+                    <div class="memory-media full-width gallery-item">
+                        <img src="https://i.imgur.com/knJ6cSt.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Nov 21, 2025</span>
+                        <p class="memory-text">The Elevator that never likes to work.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="nov">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/3Ot8KEp.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/HVd2rHm.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Nov 20, 2025</span>
+                        <p class="memory-text">The Christmas Tree goes up. Also found a Rudolph toy with a hole in it, which turns out these are filled with bird seed if anyone wants free food.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="nov">
+                    <div class="memory-media full-width gallery-item">
+                        <img src="https://i.imgur.com/ytmuL7w.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Nov 18, 2025</span>
+                        <p class="memory-text">The day I was helping with a Christmas CDU Display. I was bringing back some cardboard to the dock, but then my Water Bottle fell right before reaching the door. Instead of landing on the metal body, it flipped and caused the entire plastic lid to explode. I still haven't found a replacement lid that hasn't fallen apart.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="nov">
+                    <div class="memory-media full-width gallery-item">
+                        <img src="https://i.imgur.com/kstkP2V.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Nov 13, 2025</span>
+                        <p class="memory-text">A customer brought their cat while returning an Amazon item, so I asked for a picture.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="oct">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><video src="https://i.imgur.com/Dpj3Qza.mp4" onclick="openLightbox(this)"></video></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/j4h3dY8.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media full-width gallery-item"><img src="https://i.imgur.com/OoXF3Sl.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Halloween 2025</span>
+                        <p class="memory-text">
+                            Celebrating Halloween and Chris's 25th Workiversary! I brought my skeleton and candy. I tried to paint my arms to look like bones for my Pirate Skeleton costume... it didn't really work.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="oct">
+                    <div class="memory-media full-width gallery-item">
+                        <img src="https://i.imgur.com/bVN4nTG.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Oct 28, 2025</span>
+                        <p class="memory-text">Construction started where I usually lock my bike, so I was allowed to bring it inside during Winter. Very nice.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="oct">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/8LQ8fme.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/OvDaMzI.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Oct 9, 2025</span>
+                        <p class="memory-text">Learning about C.A.R.L. the Safety Cone on my first day at Kohls.</p>
+                    </div>
+                </div>
+
+            </div>
+        </article>
 
         <div id="lightbox" class="lightbox" onclick="handleLightboxClick(event)">
             <span class="close-btn" onclick="closeLightbox()">&times;</span>
             <span class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</span>
+            
             <img class="lightbox-img" id="lightbox-img">
+            <video class="lightbox-video" id="lightbox-video" controls style="display: none;"></video>
+            
             <span class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</span>
         </div>
 
-        <section class="card form-card fade-in delay-5">
-            <h2>📝 Cast Your Vote</h2>
-            <p>Let me know if you can make it!</p>
-            
-            <form id="collab-form" action="https://formspree.io/f/mvzpyono" method="POST">
+        <div id="share-modal" class="share-modal" onclick="closeShareModal(event)">
+            <div class="share-content">
+                <span class="close-share" onclick="closeShareModal(null)">&times;</span>
+                <h3>Share the Site ✨</h3>
                 
-                <div class="input-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" placeholder="Name" required>
+                <img src="https://i.imgur.com/JTkOFmI.png" alt="QR Code" class="qr-code">
+                
+                <div class="share-link-box" id="share-link">
+                    https://jakubatdisney.github.io/Pictures/
                 </div>
-
-                <div class="input-group">
-                    <label for="dates">Best Dates for You</label>
-                    <input type="text" id="dates" name="dates" placeholder="e.g. Dec 28, Jan 2, or 'Any'" required>
+                
+                <div class="share-actions">
+                    <button class="action-btn copy-btn" onclick="copyLink()">📋 Copy Link</button>
+                    <button class="action-btn native-share-btn" onclick="nativeShare()">🚀 Share</button>
                 </div>
-
-                <div class="input-group">
-                    <label for="message">Anything else?</label>
-                    <textarea id="message" name="message" rows="3" placeholder="Add any comments, contact info, or juicy gossip... (Optional!)"></textarea>
-                </div>
-
-                <button type="submit" class="btn-main">Send Info 🚀</button>
-            </form>
-
-            <div id="form-thank-you" style="display: none;">
-                <h3>Got it! 🎉</h3>
-                <p>Thanks for voting. I'll update the "Top Dates" section soon!</p>
             </div>
-        </section>
+        </div>
+
+        <div id="bookmark-toast" class="bookmark-toast">
+            <span style="font-size: 1.5rem;">⭐</span>
+            <div class="toast-content">
+                <strong>Don't forget!</strong><br>
+                Bookmark this page to check for weekly updates!
+            </div>
+            <button class="toast-close" onclick="closeToast()">&times;</button>
+        </div>
+
+        <button id="back-to-top" onclick="scrollToTop()">&#8679;</button>
 
         <footer class="fade-in delay-5">
             <p>
-                After the picture is taken, I'll update this website to share the high quality version of it here. 
-                I will also slowly share other pictures and updates throughout the year while I'm in Florida.
-            </p>
-            <p class="sub-footer">
-                So feel free to check back anytime to see if I've been eaten by a gator. 🐊
+                Feel free to check back anytime to see if I've been eaten by a gator. 🐊
             </p>
             <p class="signature">- Jakub</p>
         </footer>
@@ -407,59 +719,146 @@
     </div>
 
     <script>
-        // 1. AUTO-REMOVE PAST DATES
-        function updateSchedule() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+        // --- BACK TO TOP LOGIC ---
+        window.onscroll = function() {
+            const btn = document.getElementById("back-to-top");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "flex";
+            } else {
+                btn.style.display = "none";
+            }
+        };
 
-            const items = document.querySelectorAll('.cal-day');
-            
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- FILTERING LOGIC ---
+        function filterPosts(month) {
+            const chips = document.querySelectorAll('.filter-chip');
+            chips.forEach(chip => chip.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const items = document.querySelectorAll('.filter-item');
             items.forEach(item => {
-                const dateStr = item.getAttribute('data-date');
-                if (dateStr) {
-                    const [y, m, d] = dateStr.split('-').map(Number);
-                    const itemDate = new Date(y, m - 1, d);
-                    
-                    if (itemDate < today) {
-                        item.style.display = 'none';
+                if (month === 'all') {
+                    item.classList.remove('hidden-post');
+                } else {
+                    const itemMonths = item.getAttribute('data-month');
+                    if (itemMonths && itemMonths.includes(month)) {
+                        item.classList.remove('hidden-post');
+                    } else {
+                        item.classList.add('hidden-post');
                     }
                 }
             });
         }
-        
-        updateSchedule();
 
-        // 2. LIGHTBOX FUNCTIONS
+        // --- TOAST LOGIC ---
+        setTimeout(() => {
+            document.getElementById('bookmark-toast').style.bottom = '20px';
+        }, 3000); 
+
+        function closeToast() {
+            document.getElementById('bookmark-toast').style.bottom = '-100px';
+        }
+
+        // --- SHARE MODAL LOGIC ---
+        function openShareModal() {
+            document.getElementById('share-modal').style.display = 'flex';
+        }
+
+        function closeShareModal(event) {
+            if (!event || event.target.id === 'share-modal') {
+                document.getElementById('share-modal').style.display = 'none';
+            }
+        }
+
+        function copyLink() {
+            const linkText = document.getElementById('share-link').innerText.trim();
+            navigator.clipboard.writeText(linkText).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerText;
+                btn.innerText = "✅ Copied!";
+                setTimeout(() => { btn.innerText = originalText; }, 2000);
+            });
+        }
+
+        function nativeShare() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Jakub\'s Internship Gallery',
+                    text: 'Check out Jakub\'s photos from Kohls and Disney!',
+                    url: 'https://jakubatdisney.github.io/Pictures/'
+                }).catch(console.error);
+            } else {
+                alert("Sharing isn't supported on this browser. Try copying the link!");
+            }
+        }
+
+        // --- LIGHTBOX & NAVIGATION LOGIC ---
         let currentIndex = 0;
         
-        function openLightbox(imgElement) {
+        function getAllMedia() {
+            const all = Array.from(document.querySelectorAll('.gallery-item img, .gallery-item video'));
+            return all.filter(el => {
+                const parent = el.closest('.filter-item');
+                // Ensure we only navigate through visible items if a filter is active
+                if (parent && parent.classList.contains('hidden-post')) return false;
+                return true;
+            });
+        }
+
+        function openLightbox(element) {
             const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
             
-            const allImages = Array.from(document.querySelectorAll('.gallery-item img'));
-            currentIndex = allImages.indexOf(imgElement);
+            const allMedia = getAllMedia();
+            currentIndex = allMedia.indexOf(element);
             
-            lightboxImg.src = imgElement.src;
+            showMedia(element);
             lightbox.style.display = 'flex';
         }
 
+        function showMedia(element) {
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            
+            const src = element.tagName === 'VIDEO' ? element.getAttribute('src') : element.src;
+            const isVideo = element.tagName === 'VIDEO' || src.endsWith('.mp4');
+
+            if (isVideo) {
+                lightboxImg.style.display = 'none';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = src;
+                lightboxVideo.play();
+            } else {
+                lightboxVideo.style.display = 'none';
+                lightboxVideo.pause(); 
+                lightboxImg.style.display = 'block';
+                lightboxImg.src = src;
+            }
+        }
+
         function changeImage(direction) {
-            const allImages = Array.from(document.querySelectorAll('.gallery-item img'));
+            const allMedia = getAllMedia();
             
             currentIndex += direction;
 
-            if (currentIndex >= allImages.length) {
+            if (currentIndex >= allMedia.length) {
                 currentIndex = 0;
             } else if (currentIndex < 0) {
-                currentIndex = allImages.length - 1;
+                currentIndex = allMedia.length - 1;
             }
 
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = allImages[currentIndex].src;
+            showMedia(allMedia[currentIndex]);
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
+            const lightbox = document.getElementById('lightbox');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            
+            lightbox.style.display = 'none';
+            lightboxVideo.pause(); 
         }
 
         function handleLightboxClick(event) {
@@ -468,7 +867,6 @@
             }
         }
         
-        // Keyboard Support
         document.addEventListener('keydown', function(event) {
             const lightbox = document.getElementById('lightbox');
             if (lightbox.style.display === 'flex') {
@@ -478,7 +876,6 @@
             }
         });
 
-        // --- SWIPE SUPPORT FOR MOBILE ---
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -494,69 +891,9 @@
         }, {passive: true});
 
         function handleSwipe() {
-            // Threshold ensures we don't change image on a tiny accidental tap-drag
-            if (touchEndX < touchStartX - 50) {
-                changeImage(1); // Swipe Left -> Next Image
-            }
-            if (touchEndX > touchStartX + 50) {
-                changeImage(-1); // Swipe Right -> Prev Image
-            }
+            if (touchEndX < touchStartX - 50) changeImage(1);
+            if (touchEndX > touchStartX + 50) changeImage(-1);
         }
-
-        // 3. FORM HANDLING
-        const form = document.getElementById('collab-form');
-        const thankYou = document.getElementById('form-thank-you');
-
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const submitBtn = form.querySelector('button');
-            
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.7';
-
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (response.ok) {
-                    form.style.display = 'none';
-                    thankYou.style.display = 'block';
-                } else {
-                    alert('Oops! Something went wrong. Try again?');
-                    submitBtn.textContent = 'Send Info 🚀';
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = '1';
-                }
-            } catch (error) {
-                alert('Connection error. Check your internet!');
-                submitBtn.textContent = 'Send Info 🚀';
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-            }
-        });
-
-        // 4. COUNTDOWN TIMER
-        const deadline = new Date("Jan 10, 2026 23:59:59").getTime();
-        const timerElement = document.getElementById("timer");
-
-        const countdown = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = deadline - now;
-
-            const days = Math.ceil(distance / (1000 * 60 * 60 * 24)); 
-
-            if (distance < 0) {
-                clearInterval(countdown);
-                timerElement.innerHTML = "Deadline Passed";
-            } else {
-                timerElement.innerHTML = days + " Days";
-            }
-        }, 1000);
     </script>
 </body>
 </html>
