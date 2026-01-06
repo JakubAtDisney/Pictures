@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Jakub's Internship Gallery</title>
     <meta name="description" content="A gallery of my adventures from Kohl's to Disney World!">
     
@@ -876,23 +876,34 @@
             }
         });
 
+        // --- UPDATED SWIPE SUPPORT (Zoom Fix) ---
         let touchStartX = 0;
         let touchEndX = 0;
 
         const lightbox = document.getElementById('lightbox');
 
         lightbox.addEventListener('touchstart', e => {
+            // Prevent swipe logic if user is zooming (multitouch)
+            if (e.touches.length > 1) return;
+            
+            // Check if zoomed in (browser zoom)
+            if (window.visualViewport && window.visualViewport.scale > 1) return;
+
             touchStartX = e.changedTouches[0].screenX;
         }, {passive: true});
 
         lightbox.addEventListener('touchend', e => {
+            // Check again for zoom to be safe
+            if (window.visualViewport && window.visualViewport.scale > 1) return;
+
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
         }, {passive: true});
 
         function handleSwipe() {
-            if (touchEndX < touchStartX - 50) changeImage(1);
-            if (touchEndX > touchStartX + 50) changeImage(-1);
+            // Only swipe if the movement was significant enough
+            if (touchEndX < touchStartX - 50) changeImage(1); // Left swipe -> Next
+            if (touchEndX > touchStartX + 50) changeImage(-1); // Right swipe -> Prev
         }
     </script>
 </body>
