@@ -62,7 +62,7 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             z-index: 999;
-            display: none; /* Hidden by default */
+            display: none; 
             align-items: center;
             justify-content: center;
             transition: transform 0.2s, opacity 0.2s;
@@ -301,6 +301,46 @@
             aspect-ratio: 1/1; 
         }
         
+        /* Single Media Style (No Crop) */
+        .memory-media.single {
+            aspect-ratio: auto !important; 
+            height: auto;
+            min-height: 200px;
+        }
+        
+        .memory-media.single img, .memory-media.single video {
+            width: 100%;
+            height: auto;
+            object-fit: contain; 
+            max-height: 80vh; 
+        }
+
+        /* Video Play Overlay */
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 5;
+        }
+        
+        .play-overlay::after {
+            content: '▶';
+            font-size: 30px;
+            color: #fff;
+            margin-left: 4px;
+        }
+
         .memory-media.full-width { grid-column: span 2; aspect-ratio: 16/9; }
 
         .memory-media img, .memory-media video {
@@ -478,10 +518,10 @@
         <article class="blog-post fade-in delay-3">
             <div class="post-header">
                 <h3 class="post-title">Memories from Kohls</h3>
-                <span class="post-date">OCT 2025 - JAN 2026</span>
+                <span class="post-date">DEC 2025 - JAN 2026</span>
             </div>
             <p class="post-description">
-                Here are some pictures taken throughout my time working seasonal at Kohls.
+                Here is a picture that I was able to take with everyone at Kohls just in case the Group Picture was never going to happen.
             </p>
             
             <div class="memory-feed">
@@ -509,13 +549,11 @@
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/LmQXwtm.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                     </div>
                     <div class="memory-content">
-                        <span class="memory-date">Dec 2025 - Jan 2026</span>
-                        <p class="memory-text">Here is a picture that I was able to take with everyone at Kohls just in case the Group Picture was never going to happen.</p>
-                    </div>
+                        </div>
                 </div>
 
                 <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media full-width gallery-item">
+                    <div class="memory-media single gallery-item">
                         <img src="https://i.imgur.com/QpgRWMB.jpeg" loading="lazy" onclick="openLightbox(this)">
                     </div>
                     <div class="memory-content">
@@ -525,7 +563,7 @@
                 </div>
 
                 <div class="memory-card filter-item" data-month="dec">
-                    <div class="memory-media full-width gallery-item">
+                    <div class="memory-media single gallery-item">
                         <img src="https://i.imgur.com/U1VwavJ.jpeg" loading="lazy" onclick="openLightbox(this)">
                     </div>
                     <div class="memory-content">
@@ -536,7 +574,10 @@
 
                 <div class="memory-card filter-item" data-month="dec">
                     <div class="memory-grid">
-                        <div class="memory-media full-width gallery-item"><video src="https://i.imgur.com/TWHAAYx.mp4" onclick="openLightbox(this)"></video></div>
+                        <div class="memory-media full-width gallery-item">
+                            <div class="play-overlay"></div>
+                            <video src="https://i.imgur.com/TWHAAYx.mp4" onclick="openLightbox(this)"></video>
+                        </div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/WVzFTyV.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/Owwc5sY.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                     </div>
@@ -556,17 +597,17 @@
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Dec 22, 2025</span>
-                        <p class="memory-text">What remand of my moms pierogi after the Potluck finished, everyone (except Lizette) said they were really good and to thank my mom. Here is the small note I wrote with them.</p>
+                        <p class="memory-text">What remained of my moms pierogi after the Potluck finished, everyone (except Lizette) said they were really good and to thank my mom. Here is the small note I wrote with them.</p>
                     </div>
                 </div>
 
                 <div class="memory-card filter-item" data-month="dec">
-                    <div class="memory-media full-width gallery-item">
+                    <div class="memory-media single gallery-item">
                         <img src="https://i.imgur.com/fuZKspn.jpeg" loading="lazy" onclick="openLightbox(this)">
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Dec 21, 2025</span>
-                        <p class="memory-text">A Customer brought his Parrot named Chicken leg to the store.</p>
+                        <p class="memory-text">A customer and his parrot named Chicken Leg.</p>
                     </div>
                 </div>
 
@@ -582,7 +623,7 @@
                 </div>
 
                 <div class="memory-card filter-item" data-month="nov">
-                    <div class="memory-media full-width gallery-item">
+                    <div class="memory-media single gallery-item">
                         <img src="https://i.imgur.com/xkK3T6V.jpeg" loading="lazy" onclick="openLightbox(this)">
                     </div>
                     <div class="memory-content">
@@ -592,7 +633,7 @@
                 </div>
 
                 <div class="memory-card filter-item" data-month="nov">
-                    <div class="memory-media full-width gallery-item">
+                    <div class="memory-media single gallery-item">
                         <img src="https://i.imgur.com/knJ6cSt.jpeg" loading="lazy" onclick="openLightbox(this)">
                     </div>
                     <div class="memory-content">
@@ -613,7 +654,7 @@
                 </div>
 
                 <div class="memory-card filter-item" data-month="nov">
-                    <div class="memory-media full-width gallery-item">
+                    <div class="memory-media single gallery-item">
                         <img src="https://i.imgur.com/ytmuL7w.jpeg" loading="lazy" onclick="openLightbox(this)">
                     </div>
                     <div class="memory-content">
@@ -623,7 +664,7 @@
                 </div>
 
                 <div class="memory-card filter-item" data-month="nov">
-                    <div class="memory-media full-width gallery-item">
+                    <div class="memory-media single gallery-item">
                         <img src="https://i.imgur.com/kstkP2V.jpeg" loading="lazy" onclick="openLightbox(this)">
                     </div>
                     <div class="memory-content">
@@ -634,7 +675,10 @@
 
                 <div class="memory-card filter-item" data-month="oct">
                     <div class="memory-grid">
-                        <div class="memory-media gallery-item"><video src="https://i.imgur.com/Dpj3Qza.mp4" onclick="openLightbox(this)"></video></div>
+                        <div class="memory-media gallery-item">
+                            <div class="play-overlay"></div>
+                            <video src="https://i.imgur.com/Dpj3Qza.mp4" onclick="openLightbox(this)"></video>
+                        </div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/j4h3dY8.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media full-width gallery-item"><img src="https://i.imgur.com/OoXF3Sl.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                     </div>
@@ -647,12 +691,12 @@
                 </div>
 
                 <div class="memory-card filter-item" data-month="oct">
-                    <div class="memory-media full-width gallery-item">
+                    <div class="memory-media single gallery-item">
                         <img src="https://i.imgur.com/bVN4nTG.jpeg" loading="lazy" onclick="openLightbox(this)">
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Oct 28, 2025</span>
-                        <p class="memory-text">Construction started where I usually lock my bike, so I was allowed to bring it inside during Winter. Very nice.</p>
+                        <p class="memory-text">Construction started where I usually lock my bike, so I was allowed to bring it inside during Winter.</p>
                     </div>
                 </div>
 
