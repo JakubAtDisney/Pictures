@@ -374,9 +374,9 @@
             /* Fix for Button Overlap: Push content down significantly on mobile */
             .hero-screen { padding-top: 80px; } 
             
-            .nav-btn { font-size: 2rem; width: 50px; height: 50px; background: rgba(0,0,0,0.6); }
-            .prev-btn { left: 10px; }
-            .next-btn { right: 10px; }
+            /* HIDE ARROWS ON MOBILE - Use Swipe Instead */
+            .nav-btn { display: none !important; }
+            
             .lightbox-img, .lightbox-video { max-width: 100%; max-height: 80vh; }
             h1 { font-size: 2.2rem; } 
             .memory-grid.large-collection { grid-template-columns: repeat(3, 1fr); }
@@ -719,6 +719,10 @@
     </div>
 
     <script>
+        // --- GLOBALS ---
+        let currentGroup = [];
+        let currentIndex = 0;
+
         // --- BACK TO TOP LOGIC ---
         window.onscroll = function() {
             const btn = document.getElementById("back-to-top");
@@ -797,26 +801,45 @@
         }
 
         // --- LIGHTBOX & NAVIGATION LOGIC ---
-        let currentIndex = 0;
         
-        function getAllMedia() {
-            const all = Array.from(document.querySelectorAll('.gallery-item img, .gallery-item video'));
-            return all.filter(el => {
-                const parent = el.closest('.filter-item');
-                // Ensure we only navigate through visible items if a filter is active
-                if (parent && parent.classList.contains('hidden-post')) return false;
-                return true;
-            });
-        }
-
         function openLightbox(element) {
             const lightbox = document.getElementById('lightbox');
             
-            const allMedia = getAllMedia();
-            currentIndex = allMedia.indexOf(element);
+            // DETERMINE THE GROUP
+            // 1. Check if the element is inside a grid (memory-grid or gallery-grid)
+            let contextContainer = element.closest('.memory-grid, .gallery-grid');
+            
+            if (contextContainer) {
+                // If in a grid, the group is all items in that grid
+                currentGroup = Array.from(contextContainer.querySelectorAll('.gallery-item img, .gallery-item video'));
+            } else {
+                // If not in a grid, it's a single item (like Featured or Single Card)
+                currentGroup = [element];
+            }
+            
+            // Set current index within that group
+            currentIndex = currentGroup.indexOf(element);
+            
+            // Update Arrows Visibility based on group size
+            updateNavButtons();
             
             showMedia(element);
             lightbox.style.display = 'flex';
+        }
+
+        function updateNavButtons() {
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            // If group has only 1 item, hide arrows
+            if (currentGroup.length > 1) {
+                // On mobile, arrows are hidden by CSS regardless, but this handles desktop
+                prevBtn.style.visibility = 'visible';
+                nextBtn.style.visibility = 'visible';
+            } else {
+                prevBtn.style.visibility = 'hidden';
+                nextBtn.style.visibility = 'hidden';
+            }
         }
 
         function showMedia(element) {
@@ -840,17 +863,19 @@
         }
 
         function changeImage(direction) {
-            const allMedia = getAllMedia();
-            
+            // Only navigate if we have a group > 1
+            if (currentGroup.length <= 1) return;
+
             currentIndex += direction;
 
-            if (currentIndex >= allMedia.length) {
+            // Loop
+            if (currentIndex >= currentGroup.length) {
                 currentIndex = 0;
             } else if (currentIndex < 0) {
-                currentIndex = allMedia.length - 1;
+                currentIndex = currentGroup.length - 1;
             }
 
-            showMedia(allMedia[currentIndex]);
+            showMedia(currentGroup[currentIndex]);
         }
 
         function closeLightbox() {
@@ -883,27 +908,23 @@
         const lightbox = document.getElementById('lightbox');
 
         lightbox.addEventListener('touchstart', e => {
-            // Prevent swipe logic if user is zooming (multitouch)
             if (e.touches.length > 1) return;
-            
-            // Check if zoomed in (browser zoom)
             if (window.visualViewport && window.visualViewport.scale > 1) return;
-
             touchStartX = e.changedTouches[0].screenX;
         }, {passive: true});
 
         lightbox.addEventListener('touchend', e => {
-            // Check again for zoom to be safe
             if (window.visualViewport && window.visualViewport.scale > 1) return;
-
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
         }, {passive: true});
 
         function handleSwipe() {
-            // Only swipe if the movement was significant enough
-            if (touchEndX < touchStartX - 50) changeImage(1); // Left swipe -> Next
-            if (touchEndX > touchStartX + 50) changeImage(-1); // Right swipe -> Prev
+            // Only allow swipe if group > 1
+            if (currentGroup.length <= 1) return;
+
+            if (touchEndX < touchStartX - 50) changeImage(1); 
+            if (touchEndX > touchStartX + 50) changeImage(-1); 
         }
     </script>
 </body>
