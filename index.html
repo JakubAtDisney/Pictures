@@ -39,6 +39,11 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Helper class to stop scrolling when lightbox is open */
+        body.no-scroll {
+            overflow: hidden;
+        }
+
         /* CONTAINER */
         .container {
             max-width: 800px;
@@ -55,7 +60,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding-top: 60px; /* Space for share button */
+            padding-top: 60px;
             padding-bottom: 40px;
         }
 
@@ -63,6 +68,7 @@
             font-size: 2.5rem;
             font-weight: 800;
             margin: 15px 0;
+            color: var(--accent-gold); 
             background: linear-gradient(45deg, #ffd700, #ffaa00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -71,7 +77,7 @@
 
         .header-emoji {
             font-size: 2.5rem;
-            -webkit-text-fill-color: initial; /* Keep emoji colors */
+            -webkit-text-fill-color: initial;
         }
 
         .tagline {
@@ -81,28 +87,32 @@
         }
 
         .update-badge {
-            background: rgba(255, 215, 0, 0.15);
+            background: rgba(255, 215, 0, 0.1);
             color: var(--accent-gold);
             border: 1px solid var(--accent-gold);
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-decoration: none;
             display: inline-block;
             margin-bottom: 15px;
             transition: transform 0.2s;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
         }
 
         .update-badge:hover {
             transform: scale(1.05);
+            background: rgba(255, 215, 0, 0.2);
         }
 
         .arrow {
-            color: #555;
-            font-size: 0.9rem;
+            color: var(--accent-blue);
+            font-size: 1rem;
             margin-top: 30px;
+            font-weight: 600;
             animation: bounce 2s infinite;
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.4);
         }
 
         @keyframes bounce {
@@ -111,7 +121,7 @@
             60% {transform: translateY(-5px);}
         }
 
-        /* INFO CARD (Program Details) */
+        /* INFO CARD */
         .info-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -152,10 +162,10 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
-        /* GENERAL CARD STYLE */
+        /* CARDS */
         .card, .blog-post {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -236,11 +246,7 @@
             transition: transform 0.2s;
         }
 
-        .featured-img-container img:hover {
-            transform: scale(1.02);
-        }
-
-        /* MEMORY FEED & GRIDS */
+        /* MEMORY GRIDS */
         .memory-feed {
             display: flex;
             flex-direction: column;
@@ -276,10 +282,6 @@
             cursor: pointer;
         }
 
-        .memory-media:hover img {
-            opacity: 0.9;
-        }
-
         .memory-media img, .memory-media video {
             width: 100%;
             height: 100%;
@@ -292,7 +294,6 @@
             aspect-ratio: 16/9;
         }
 
-        /* SINGLE IMAGE POSTS (No Crop) */
         .memory-media.single {
             aspect-ratio: auto !important;
             height: auto;
@@ -326,7 +327,7 @@
             line-height: 1.5;
         }
 
-        /* VIDEO PLAY OVERLAY */
+        /* PLAY BUTTON OVERLAY */
         .play-overlay {
             position: absolute;
             top: 50%;
@@ -352,7 +353,7 @@
             margin-left: 4px;
         }
 
-        /* SHARE BUTTON & MODAL */
+        /* SHARE BUTTON */
         .share-btn-container {
             position: absolute;
             top: 20px;
@@ -375,11 +376,6 @@
             gap: 8px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .share-btn:hover {
-            background: rgba(240, 147, 43, 0.2);
-            transform: translateY(-2px);
         }
 
         .share-modal {
@@ -505,13 +501,30 @@
             backdrop-filter: blur(5px);
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
         .lightbox-img, .lightbox-video {
-            max-width: 90%;
-            max-height: 90vh;
+            max-width: 95%;
+            max-height: 70vh; /* Leave room for caption on mobile */
             border-radius: 4px;
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        /* CAPTION STYLE */
+        .lightbox-caption {
+            margin-top: 20px;
+            color: #fff;
+            text-align: center;
+            font-size: 1rem;
+            max-width: 90%;
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            line-height: 1.5;
+            border: 1px solid #444;
+            display: none; /* Hidden by default */
         }
 
         .close-btn {
@@ -523,6 +536,7 @@
             font-weight: bold;
             cursor: pointer;
             z-index: 10002;
+            padding: 10px; /* Bigger touch area */
         }
 
         .nav-btn {
@@ -574,11 +588,6 @@
             justify-content: center;
             transition: transform 0.2s, opacity 0.2s;
             opacity: 0.9;
-        }
-
-        #back-to-top:hover {
-            transform: scale(1.1);
-            opacity: 1;
         }
 
         /* BOOKMARK TOAST */
@@ -656,7 +665,7 @@
             /* HIDE ARROWS ON MOBILE - Use Swipe Instead */
             .nav-btn { display: none !important; }
             
-            .lightbox-img, .lightbox-video { max-width: 100%; max-height: 80vh; }
+            .lightbox-img, .lightbox-video { max-width: 100%; max-height: 60vh; }
             h1 { font-size: 2rem; } 
             
             .memory-grid.large-collection { grid-template-columns: repeat(3, 1fr); }
@@ -791,168 +800,87 @@
                 </div>
 
                 <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-grid">
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/nyqwkUs.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/dCPOMhR.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/nyqwkUs.jpeg" loading="lazy" onclick="openLightbox(this)" 
+                                 data-desc="After getting my free 3 Day ParkHopper Passes for Disney World all sorted out, I met a new friend in line who joined me at the Welcome To Florida Event Party going on. They had a giant life size gator (totally not an inflatable slide), free pizza, stickers, and a photo spot.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/dCPOMhR.jpeg" loading="lazy" onclick="openLightbox(this)" 
+                                 data-desc="After getting my free 3 Day ParkHopper Passes for Disney World all sorted out, I met a new friend in line who joined me at the Welcome To Florida Event Party going on. They had a giant life size gator (totally not an inflatable slide), free pizza, stickers, and a photo spot.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/gI0dxEe.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="This guy at the party had a parrot hat.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/XbMHC87.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="You would be crazy to think that I didn't go on the giant gator slide.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/OZ7DmSO.png" loading="lazy" onclick="openLightbox(this)" data-desc="You would be crazy to think that I didn't go on the giant gator slide.">
+                        </div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Trup0sx.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also a character meet & greet, but you can only pick one group of characters to take a picture with."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/MBSPf2t.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also a character meet & greet, but you can only pick one group of characters to take a picture with."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/pqTtAsk.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also a character meet & greet, but you can only pick one group of characters to take a picture with."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/cODAkCQ.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also a character meet & greet, but you can only pick one group of characters to take a picture with."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/9zPURMV.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also a character meet & greet, but you can only pick one group of characters to take a picture with."></div>
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Jan 13, 2026</span>
-                        <p class="memory-text">After getting my free 3 Day ParkHopper Passes for Disney World all sorted out, I met a new friend in line who joined me at the Welcome To Florida Event Party going on. They had a giant life size gator (totally not an inflatable slide), free pizza, stickers, and a photo spot.</p>
+                        <p class="memory-text">After getting my free 3 Day ParkHopper Passes, I went to the Welcome To Florida Event Party. Met a new friend, saw a guy with a parrot hat, went on the giant gator slide, and met some characters.</p>
                     </div>
                 </div>
 
                 <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/gI0dxEe.jpeg" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 13, 2026</span>
-                        <p class="memory-text">This guy at the party had a parrot hat.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-grid">
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/XbMHC87.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/OZ7DmSO.png" loading="lazy" onclick="openLightbox(this)"></div>
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 13, 2026</span>
-                        <p class="memory-text">You would be crazy to think that I didn't go on the giant gator slide.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-grid">
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Trup0sx.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/MBSPf2t.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/pqTtAsk.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/cODAkCQ.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/9zPURMV.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 13, 2026</span>
-                        <p class="memory-text">There was also a character meet & greet, but you can only pick one group of characters to take a picture with.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/QA1r4M4.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/QA1r4M4.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Once everything was finished for the day, I walked about 10 minutes to the nearest Target to get myself some survival food. Nothing like Oatmeal, Bananas, Bread, and Peanut Butter for $13.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/hbz2knO.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I have 3 roommates in my Dorm who are all very nice and were sharing all kinds of tips on how to get around here. They are from Peru, Canada, and Miami. My room has a bed, cabinet, closet, safety box (I brought a lock), and my own bathroom/shower. It's very nice and I was easily able to unpack everything.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/Ezdolyt.png" loading="lazy" onclick="openLightbox(this)" data-desc="After probably 1.5 hours of waiting, getting my information checked, being fingerprinted, taking my ID Picture, and receiving my Entry Pass... I was finally able to get my Dorm Room where I'll be staying.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/pzpuemt.png" loading="lazy" onclick="openLightbox(this)" data-desc="About 5 minutes before I was about to Check Out of the Hotel Room, my friend calls me saying he lost his wallet. I found it in the room but had to drop off my luggage first or I'll be late. I ended up Ubering to give my friend his wallet, Ubering back to drop off my luggage, then Ubering right back a few minutes after to start my Check In. Luckily there were alot of people arriving for the program today, so being late was fine (my friend also paid me back for those Uber rides).">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/N0W2Cv2.png" loading="lazy" onclick="openLightbox(this)" data-desc="My friend had his Check In time at 8am whereas I had mine at 10.20am, so he Ubered to the Flamingo Crossing Village (which is where we'll be staying), while I stayed to clean up the Hotel Room and get ready.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/2mfWMDm.png" loading="lazy" onclick="openLightbox(this)" data-desc="I made sure to eat whatever I could at the Hotel Breakfast as I wasn't sure when my next meal may be. Then I ended up having to explode the toilet a few times right after.">
+                        </div>
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Jan 12, 2026</span>
-                        <p class="memory-text">Once everything was finished for the day, I walked about 10 minutes to the nearest Target to get myself some survival food. Nothing like Oatmeal, Bananas, Bread, and Peanut Butter for $13.</p>
+                        <p class="memory-text">Move-In Day! From a hearty breakfast to a lost wallet panic, Uber rides, checking in, meeting roommates, and a survival food run.</p>
                     </div>
                 </div>
 
                 <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/hbz2knO.jpeg" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 12, 2026</span>
-                        <p class="memory-text">I have 3 roommates in my Dorm who are all very nice and were sharing all kinds of tips on how to get around here. They are from Peru, Canada, and Miami. My room has a bed, cabinet, closet, safety box (I brought a lock), and my own bathroom/shower. It's very nice and I was easily able to unpack everything.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/Ezdolyt.png" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 12, 2026</span>
-                        <p class="memory-text">After probably 1.5 hours of waiting, getting my information checked, being fingerprinted, taking my ID Picture, and receiving my Entry Pass... I was finally able to get my Dorm Room where I'll be staying.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/pzpuemt.png" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 12, 2026</span>
-                        <p class="memory-text">About 5 minutes before I was about to Check Out of the Hotel Room, my friend calls me saying he lost his wallet. I found it in the room but had to drop off my luggage first or I'll be late. I ended up Ubering to give my friend his wallet, Ubering back to drop off my luggage, then Ubering right back a few minutes after to start my Check In. Luckily there were alot of people arriving for the program today, so being late was fine (my friend also paid me back for those Uber rides).</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/N0W2Cv2.png" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 12, 2026</span>
-                        <p class="memory-text">My friend had his Check In time at 8am whereas I had mine at 10.20am, so he Ubered to the Flamingo Crossing Village (which is where we'll be staying), while I stayed to clean up the Hotel Room and get ready.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/2mfWMDm.png" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 12, 2026</span>
-                        <p class="memory-text">I made sure to eat whatever I could at the Hotel Breakfast as I wasn't sure when my next meal may be. Then I ended up having to explode the toilet a few times right after.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/9w3RDbT.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/9w3RDbT.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend from school was also doing the Disney Program and arrived earlier that day after a 40 hour Amtrak Train ride. I made sure to have booked this room early at the TownePlace Suites Hotel for the night. Then we celebrated with some pizza.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/0Rrr2Z5.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After almost 3 hours of flying, I have made it to the Orlando Airport. It was strange to be in 80 degree weather after just leaving Chicago where it was 30 degrees only a few hours before.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/ecwlsHs.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I almost missed the flight too as I forgot I had to still Check In to get my seat and ended up waiting until the sign read 'Boarding Complete', luckily the workers there were able to get me the last seat as the entire plane was completely full.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/1P4uH69.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Apparently my 'Free Carry On' bag was too large for O'Hare's Dimensions so I had to pay an extra $45 to make it a Checked Bag. Then I waited at Terminal K9 for my flight.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/tgNH2Ia.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I had everything needed to spend 7 months in Florida and was packing my luggage until 4am.">
+                        </div>
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/Ym7nUD2.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Went to make one last Amazon Return at Kohls before heading to O'Hare Airport.">
+                        </div>
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Jan 11, 2026</span>
-                        <p class="memory-text">My friend from school was also doing the Disney Program and arrived earlier that day after a 40 hour Amtrak Train ride. I made sure to have booked this room early at the TownePlace Suites Hotel for the night. Then we celebrated with some pizza.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/0Rrr2Z5.jpeg" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 11, 2026</span>
-                        <p class="memory-text">After almost 3 hours of flying, I have made it to the Orlando Airport. It was strange to be in 80 degree weather after just leaving Chicago where it was 30 degrees only a few hours before.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/ecwlsHs.jpeg" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 11, 2026</span>
-                        <p class="memory-text">I almost missed the flight too as I forgot I had to still Check In to get my seat and ended up waiting until the sign read "Boarding Complete", luckily the workers there were able to get me the last seat as the entire plane was completely full.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/1P4uH69.jpeg" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 11, 2026</span>
-                        <p class="memory-text">Apparently my "Free Carry On" bag was too large for O'Hare's Dimensions so I had to pay an extra $45 to make it a Checked Bag. Then I waited at Terminal K9 for my flight.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/tgNH2Ia.jpeg" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 11, 2026</span>
-                        <p class="memory-text">I had everything needed to spend 7 months in Florida and was packing my luggage until 4am.</p>
-                    </div>
-                </div>
-
-                <div class="memory-card filter-item" data-month="jan">
-                    <div class="memory-media single gallery-item">
-                        <img src="https://i.imgur.com/Ym7nUD2.jpeg" loading="lazy" onclick="openLightbox(this)">
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 11, 2026</span>
-                        <p class="memory-text">Went to make one last Amazon Return at Kohls before heading to O'Hare Airport.</p>
+                        <p class="memory-text">The journey begins! Packing until 4am, flight scares at O'Hare, arriving in warm Orlando, and meeting up with friends.</p>
                     </div>
                 </div>
 
@@ -1173,6 +1101,8 @@
 
         <div id="lightbox" class="lightbox" onclick="handleLightboxClick(event)">
             <span class="close-btn" onclick="closeLightbox()">&times;</span>
+            <div class="lightbox-caption"></div>
+            
             <span class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</span>
             
             <img class="lightbox-img" id="lightbox-img">
@@ -1326,6 +1256,7 @@
             
             showMedia(element);
             lightbox.style.display = 'flex';
+            document.body.classList.add('no-scroll'); // Stop scrolling background
         }
 
         function updateNavButtons() {
@@ -1346,7 +1277,17 @@
         function showMedia(element) {
             const lightboxImg = document.getElementById('lightbox-img');
             const lightboxVideo = document.getElementById('lightbox-video');
+            const captionEl = document.querySelector('.lightbox-caption');
             
+            // UPDATE CAPTION
+            const desc = element.getAttribute('data-desc');
+            if (desc) {
+                captionEl.textContent = desc;
+                captionEl.style.display = 'block';
+            } else {
+                captionEl.style.display = 'none';
+            }
+
             const src = element.tagName === 'VIDEO' ? element.getAttribute('src') : element.src;
             const isVideo = element.tagName === 'VIDEO' || src.endsWith('.mp4');
 
@@ -1385,6 +1326,7 @@
             
             lightbox.style.display = 'none';
             lightboxVideo.pause(); 
+            document.body.classList.remove('no-scroll'); // Re-enable scrolling
         }
 
         function handleLightboxClick(event) {
