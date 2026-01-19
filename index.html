@@ -10,12 +10,348 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #aaaaaa;
+            --accent-gold: #ffd700;
+            --accent-blue: #4facfe;
+            --accent-orange: #ff9a9e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* HEADER / HERO */
+        .hero-screen {
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 60px; /* Space for share button */
+            padding-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .header-emoji {
+            font-size: 2.5rem;
+            -webkit-text-fill-color: initial; /* Keep emoji colors */
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .update-badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+
+        .update-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .arrow {
+            color: #555;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* INFO CARD (Program Details) */
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .info-highlight {
+            color: var(--accent-blue);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        /* GENERAL CARD STYLE */
+        .card, .blog-post {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 1px solid #333;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .card-header-custom {
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .card-header-custom h2 {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .story-content p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        .fun-fact {
+            background: rgba(79, 172, 254, 0.1);
+            border-left: 4px solid var(--accent-blue);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        /* POST STYLES */
+        .post-header {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .post-title {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .post-date {
+            color: #888;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .post-description {
+            color: #ddd;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .featured-img-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid var(--accent-blue);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .featured-img-container img:hover {
+            transform: scale(1.02);
+        }
+
+        /* MEMORY FEED & GRIDS */
+        .memory-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: #000;
+        }
+
+        .memory-grid.large-collection {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .memory-media {
+            position: relative;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            aspect-ratio: 1/1; 
+            cursor: pointer;
+        }
+
+        .memory-media:hover img {
+            opacity: 0.9;
+        }
+
+        .memory-media img, .memory-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.2s;
+        }
+
+        .memory-media.full-width {
+            grid-column: span 2;
+            aspect-ratio: 16/9;
+        }
+
+        /* SINGLE IMAGE POSTS (No Crop) */
+        .memory-media.single {
+            aspect-ratio: auto !important;
+            height: auto;
+            min-height: 200px;
+            background: #111;
+        }
+
+        .memory-media.single img, .memory-media.single video {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            max-height: 80vh;
+        }
+
+        .memory-content {
+            padding: 15px;
+        }
+
+        .memory-date {
+            color: var(--accent-orange);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .memory-text {
+            color: #eee;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* VIDEO PLAY OVERLAY */
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 5;
+        }
+
+        .play-overlay::after {
+            content: '▶';
+            font-size: 24px;
+            color: #fff;
+            margin-left: 4px;
+        }
+
         /* SHARE BUTTON & MODAL */
         .share-btn-container {
             position: absolute;
@@ -29,7 +365,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--accent-gold);
-            padding: 10px 15px;
+            padding: 8px 15px;
             border-radius: 50px;
             cursor: pointer;
             font-size: 0.9rem;
@@ -46,35 +382,6 @@
             transform: translateY(-2px);
         }
 
-        /* BACK TO TOP BUTTON */
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--accent-blue);
-            color: #000;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            z-index: 999;
-            display: none; 
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, opacity 0.2s;
-            opacity: 0.9;
-        }
-
-        #back-to-top:hover {
-            transform: scale(1.1);
-            opacity: 1;
-        }
-
-        /* Share Modal */
         .share-modal {
             display: none;
             position: fixed;
@@ -152,7 +459,7 @@
             cursor: pointer;
         }
 
-        /* --- MONTH FILTER MENU --- */
+        /* FILTER MENU */
         .filter-bar {
             display: flex;
             gap: 10px;
@@ -170,7 +477,7 @@
             padding: 8px 16px;
             border-radius: 20px;
             color: #ccc;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.2s;
@@ -185,7 +492,96 @@
 
         .hidden-post { display: none !important; }
 
-        /* --- BOOKMARK TOAST --- */
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-img, .lightbox-video {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 4px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10002;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px;
+            user-select: none;
+            z-index: 10001;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(240, 147, 43, 0.9);
+        }
+
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        /* BACK TO TOP */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-blue);
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 999;
+            display: none; 
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, opacity 0.2s;
+            opacity: 0.9;
+        }
+
+        #back-to-top:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        /* BOOKMARK TOAST */
         .bookmark-toast {
             position: fixed;
             bottom: -100px;
@@ -221,208 +617,54 @@
             padding: 5px;
         }
 
-        /* --- EXISTING STYLES --- */
-        .blog-post {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            border: 1px solid #444;
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        .post-header {
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-
-        .post-title {
-            color: var(--accent-gold);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .post-date {
-            color: #888;
+        footer {
+            text-align: center;
+            color: #777;
             font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: block;
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-top: 1px solid #222;
         }
 
-        .post-description {
-            color: #ddd;
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            line-height: 1.6;
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-top: 10px;
         }
 
-        .featured-img-container img {
-            display: block;
-            width: 100%;
-            height: auto; 
-            object-fit: contain; 
-            border-radius: 12px;
-            border: 2px solid var(--accent-blue);
-            cursor: pointer;
-            transition: transform 0.2s;
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .featured-img-container img:hover { transform: scale(1.02); }
-
-        .memory-feed { display: flex; flex-direction: column; gap: 30px; }
-
-        .memory-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #333;
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
         }
 
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2px;
-            background: #000;
-        }
-        
-        .memory-grid.large-collection { grid-template-columns: repeat(3, 1fr); }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-5 { animation-delay: 1.0s; }
 
-        .memory-media {
-            position: relative;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            aspect-ratio: 1/1; 
-        }
-        
-        /* Single Media Style (No Crop) */
-        .memory-media.single {
-            aspect-ratio: auto !important; 
-            height: auto;
-            min-height: 200px;
-        }
-        
-        .memory-media.single img, .memory-media.single video {
-            width: 100%;
-            height: auto;
-            object-fit: contain; 
-            max-height: 80vh; 
-        }
-
-        /* Video Play Overlay */
-        .play-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-        
-        .play-overlay::after {
-            content: '▶';
-            font-size: 30px;
-            color: #fff;
-            margin-left: 4px;
-        }
-
-        .memory-media.full-width { grid-column: span 2; aspect-ratio: 16/9; }
-
-        .memory-media img, .memory-media video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        
-        .memory-media:hover img { opacity: 0.8; }
-
-        .memory-content { padding: 20px; }
-
-        .memory-date {
-            color: var(--accent-orange);
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .memory-text { color: #eee; font-size: 1rem; line-height: 1.5; }
-
-        .info-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 20px 25px;
-            margin-top: 25px;
-            margin-bottom: 40px;
-            display: inline-flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: left;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            max-width: 90%;
-        }
-
-        .info-row { display: flex; align-items: center; gap: 12px; color: #e0e0e0; font-size: 1.05rem; font-weight: 500; }
-        .info-icon { font-size: 1.4rem; min-width: 30px; text-align: center; }
-        .info-highlight { color: var(--accent-blue); font-weight: 700; display: block; margin-bottom: 2px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
-
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #fff;
-            font-size: 3rem;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 10px;
-            user-select: none;
-            z-index: 10001;
-            background: rgba(0,0,0,0.3);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        .nav-btn:hover { background: rgba(240, 147, 43, 0.9); transform: translateY(-50%) scale(1.1); }
-        .prev-btn { left: 20px; }
-        .next-btn { right: 20px; }
-
+        /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 768px) {
-            /* Fix for Button Overlap: Push content down significantly on mobile */
             .hero-screen { padding-top: 80px; } 
             
             /* HIDE ARROWS ON MOBILE - Use Swipe Instead */
             .nav-btn { display: none !important; }
             
             .lightbox-img, .lightbox-video { max-width: 100%; max-height: 80vh; }
-            h1 { font-size: 2.2rem; } 
+            h1 { font-size: 2rem; } 
+            
             .memory-grid.large-collection { grid-template-columns: repeat(3, 1fr); }
             .memory-grid { grid-template-columns: repeat(2, 1fr); }
+            
             .info-card { padding: 15px; width: 100%; }
             .info-row { font-size: 0.95rem; }
+            
             .share-btn-container { top: 15px; right: 15px; }
         }
     </style>
@@ -437,11 +679,11 @@
             </button>
         </div>
 
-        <header class="hero-screen" style="min-height: 50vh;">
+        <header class="hero-screen">
             <div class="hero-content">
                 
-                <a href="#main-photo" class="update-badge">
-                    📸 New Pics Added Jan 5 👇
+                <a href="#disney-feed" class="update-badge">
+                    📸 New Pics Added Jan 16 👇
                 </a>
 
                 <h1>Jakub's Internship Gallery <span class="header-emoji">🏰</span></h1>
@@ -501,6 +743,221 @@
             <button class="filter-chip" onclick="filterPosts('nov')">Nov 2025</button>
             <button class="filter-chip" onclick="filterPosts('oct')">Oct 2025</button>
         </div>
+
+        <article id="disney-feed" class="blog-post filter-item fade-in delay-2" data-month="jan">
+            <div class="post-header">
+                <h3 class="post-title">Disney Adventures</h3>
+                <span class="post-date">JAN 2026 - Present</span>
+            </div>
+            <p class="post-description">
+                The next chapter begins! Moving to Florida and starting the Disney College Program.
+            </p>
+            
+            <div class="memory-feed">
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/zbSqlwt.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/XCit4TB.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ySgEiFd.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/UWz7tNw.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Dnil0g4.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/QrrGcrf.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/xFDoga2.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/NN66WB3.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/w2RWY8h.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/lPy1LXj.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/F0Hv6ei.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/sfXKkmM.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/r8leMhJ.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/w9p9qJN.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/idM5cdm.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Dhohk3G.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/HQSLyWU.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/KaTndvL.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/gjugHB6.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/stVmArV.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/hp2Bd2b.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/wejmSYO.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/hxU7Sj1.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/6MSpuL7.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/lsnVaAD.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/BfJvxUX.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 14, 2026</span>
+                        <p class="memory-text">Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air).</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/nyqwkUs.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/dCPOMhR.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 13, 2026</span>
+                        <p class="memory-text">After getting my free 3 Day ParkHopper Passes for Disney World all sorted out, I met a new friend in line who joined me at the Welcome To Florida Event Party going on. They had a giant life size gator (totally not an inflatable slide), free pizza, stickers, and a photo spot.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/gI0dxEe.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 13, 2026</span>
+                        <p class="memory-text">This guy at the party had a parrot hat.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/XbMHC87.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/OZ7DmSO.png" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 13, 2026</span>
+                        <p class="memory-text">You would be crazy to think that I didn't go on the giant gator slide.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Trup0sx.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/MBSPf2t.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/pqTtAsk.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/cODAkCQ.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/9zPURMV.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 13, 2026</span>
+                        <p class="memory-text">There was also a character meet & greet, but you can only pick one group of characters to take a picture with.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/QA1r4M4.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 12, 2026</span>
+                        <p class="memory-text">Once everything was finished for the day, I walked about 10 minutes to the nearest Target to get myself some survival food. Nothing like Oatmeal, Bananas, Bread, and Peanut Butter for $13.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/hbz2knO.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 12, 2026</span>
+                        <p class="memory-text">I have 3 roommates in my Dorm who are all very nice and were sharing all kinds of tips on how to get around here. They are from Peru, Canada, and Miami. My room has a bed, cabinet, closet, safety box (I brought a lock), and my own bathroom/shower. It's very nice and I was easily able to unpack everything.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/Ezdolyt.png" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 12, 2026</span>
+                        <p class="memory-text">After probably 1.5 hours of waiting, getting my information checked, being fingerprinted, taking my ID Picture, and receiving my Entry Pass... I was finally able to get my Dorm Room where I'll be staying.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/pzpuemt.png" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 12, 2026</span>
+                        <p class="memory-text">About 5 minutes before I was about to Check Out of the Hotel Room, my friend calls me saying he lost his wallet. I found it in the room but had to drop off my luggage first or I'll be late. I ended up Ubering to give my friend his wallet, Ubering back to drop off my luggage, then Ubering right back a few minutes after to start my Check In. Luckily there were alot of people arriving for the program today, so being late was fine (my friend also paid me back for those Uber rides).</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/N0W2Cv2.png" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 12, 2026</span>
+                        <p class="memory-text">My friend had his Check In time at 8am whereas I had mine at 10.20am, so he Ubered to the Flamingo Crossing Village (which is where we'll be staying), while I stayed to clean up the Hotel Room and get ready.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/2mfWMDm.png" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 12, 2026</span>
+                        <p class="memory-text">I made sure to eat whatever I could at the Hotel Breakfast as I wasn't sure when my next meal may be. Then I ended up having to explode the toilet a few times right after.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/9w3RDbT.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 11, 2026</span>
+                        <p class="memory-text">My friend from school was also doing the Disney Program and arrived earlier that day after a 40 hour Amtrak Train ride. I made sure to have booked this room early at the TownePlace Suites Hotel for the night. Then we celebrated with some pizza.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/0Rrr2Z5.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 11, 2026</span>
+                        <p class="memory-text">After almost 3 hours of flying, I have made it to the Orlando Airport. It was strange to be in 80 degree weather after just leaving Chicago where it was 30 degrees only a few hours before.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/ecwlsHs.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 11, 2026</span>
+                        <p class="memory-text">I almost missed the flight too as I forgot I had to still Check In to get my seat and ended up waiting until the sign read "Boarding Complete", luckily the workers there were able to get me the last seat as the entire plane was completely full.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/1P4uH69.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 11, 2026</span>
+                        <p class="memory-text">Apparently my "Free Carry On" bag was too large for O'Hare's Dimensions so I had to pay an extra $45 to make it a Checked Bag. Then I waited at Terminal K9 for my flight.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/tgNH2Ia.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 11, 2026</span>
+                        <p class="memory-text">I had everything needed to spend 7 months in Florida and was packing my luggage until 4am.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-media single gallery-item">
+                        <img src="https://i.imgur.com/Ym7nUD2.jpeg" loading="lazy" onclick="openLightbox(this)">
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 11, 2026</span>
+                        <p class="memory-text">Went to make one last Amazon Return at Kohls before heading to O'Hare Airport.</p>
+                    </div>
+                </div>
+
+            </div>
+        </article>
 
         <article id="main-photo" class="blog-post filter-item fade-in delay-2" data-month="jan">
             <div class="post-header">
@@ -696,7 +1153,7 @@
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Oct 28, 2025</span>
-                        <p class="memory-text">Construction started where I usually lock my bike, so I was allowed to bring it inside during Winter.</p>
+                        <p class="memory-text">Construction started where I usually lock my bike, so I was allowed to bring it inside during Winter. Very nice.</p>
                     </div>
                 </div>
 
