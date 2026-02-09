@@ -60,7 +60,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding-top: 60px;
+            padding-top: 60px; /* Space for share button */
             padding-bottom: 40px;
         }
 
@@ -77,7 +77,7 @@
 
         .header-emoji {
             font-size: 2.5rem;
-            -webkit-text-fill-color: initial;
+            -webkit-text-fill-color: initial; /* Keep emoji colors */
         }
 
         .tagline {
@@ -165,7 +165,7 @@
             opacity: 0.9;
         }
 
-        /* CARDS */
+        /* GENERAL CARD STYLE */
         .card, .blog-post {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -246,7 +246,11 @@
             transition: transform 0.2s;
         }
 
-        /* MEMORY GRIDS */
+        .featured-img-container img:hover {
+            transform: scale(1.02);
+        }
+
+        /* MEMORY FEED & GRIDS */
         .memory-feed {
             display: flex;
             flex-direction: column;
@@ -282,6 +286,10 @@
             cursor: pointer;
         }
 
+        .memory-media:hover img {
+            opacity: 0.9;
+        }
+
         .memory-media img, .memory-media video {
             width: 100%;
             height: 100%;
@@ -294,6 +302,7 @@
             aspect-ratio: 16/9;
         }
 
+        /* SINGLE IMAGE POSTS (No Crop) */
         .memory-media.single {
             aspect-ratio: auto !important;
             height: auto;
@@ -327,7 +336,7 @@
             line-height: 1.5;
         }
 
-        /* PLAY BUTTON OVERLAY */
+        /* VIDEO PLAY OVERLAY */
         .play-overlay {
             position: absolute;
             top: 50%;
@@ -378,6 +387,12 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
+        .share-btn:hover {
+            background: rgba(240, 147, 43, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* SHARE MODAL */
         .share-modal {
             display: none;
             position: fixed;
@@ -506,25 +521,23 @@
 
         .lightbox-img, .lightbox-video {
             max-width: 95%;
-            max-height: 70vh; /* Leave room for caption on mobile */
+            max-height: 75vh;
             border-radius: 4px;
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
-        /* CAPTION STYLE */
+        /* LIGHTBOX CAPTION */
         .lightbox-caption {
-            margin-top: 20px;
+            margin-top: 15px;
             color: #fff;
             text-align: center;
             font-size: 1rem;
             max-width: 90%;
-            padding: 15px;
+            padding: 10px 15px;
             background: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(5px);
             border-radius: 12px;
             line-height: 1.5;
             border: 1px solid #444;
-            display: none; /* Hidden by default */
         }
 
         .close-btn {
@@ -588,6 +601,11 @@
             justify-content: center;
             transition: transform 0.2s, opacity 0.2s;
             opacity: 0.9;
+        }
+
+        #back-to-top:hover {
+            transform: scale(1.1);
+            opacity: 1;
         }
 
         /* BOOKMARK TOAST */
@@ -692,7 +710,7 @@
             <div class="hero-content">
                 
                 <a href="#disney-feed" class="update-badge">
-                    📸 New Pics Added Jan 25 👇
+                    📸 New Pics Added Feb 9 👇
                 </a>
 
                 <h1>Jakub's Internship Gallery <span class="header-emoji">🏰</span></h1>
@@ -763,6 +781,196 @@
             </p>
             
             <div class="memory-feed">
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/RPKUSOP.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After about 1 week of secret Discord planning and now having all the Birthday items together, the 3 of us met up around midnight. All of us had no other free time throughout the week since our work schedules were all over the place."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ig51Fbv.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We thought we had more time to write in the card too but my friend arrived abit earlier than expected on the Bus."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/gnpJLVC.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We were still able to at least surprise him with the mini Vanilla Card, Cake, Hot Wheels Toy Car, Pack of Twisted Tea, Farting Birthday Card, and some Backwood Cigars."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/jM30Y9N.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We were still able to at least surprise him with the mini Vanilla Card, Cake, Hot Wheels Toy Car, Pack of Twisted Tea, Farting Birthday Card, and some Backwood Cigars."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/aD6EISk.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We were still able to at least surprise him with the mini Vanilla Card, Cake, Hot Wheels Toy Car, Pack of Twisted Tea, Farting Birthday Card, and some Backwood Cigars."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 31, 2026</span>
+                        <p class="memory-text">After a week of secret planning, we surprised our friend at midnight with a cake, card, and inside jokes.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/k7JeUDY.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There's this place only available for Disney Cast Members called Cast Connections, it offers huge deals on Disney Merchandise as well as food. So my friend and I went to visit in hopes of finding ingredients to bake my other friend his Birthday Cake."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/UHV0XBa.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Instead, I found a Monsters Inc Screaming Cup, Toy Story 2 Emperor Zurg figure, as well as a huge thing of Cheese and Ham."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/SbHZbf5.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Instead, I found a Monsters Inc Screaming Cup, Toy Story 2 Emperor Zurg figure, as well as a huge thing of Cheese and Ham."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/mYyeWrB.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Instead, I found a Monsters Inc Screaming Cup, Toy Story 2 Emperor Zurg figure, as well as a huge thing of Cheese and Ham."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/env4tyg.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Instead, I found a Monsters Inc Screaming Cup, Toy Story 2 Emperor Zurg figure, as well as a huge thing of Cheese and Ham."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/3WaRDdZ.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We even took the Bus to Walmart and were able to find a mini cake, cheesy farting Birthday Card, as well as a small toy car."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/dB9SXn8.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We even took the Bus to Walmart and were able to find a mini cake, cheesy farting Birthday Card, as well as a small toy car."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/NexIriI.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We even took the Bus to Walmart and were able to find a mini cake, cheesy farting Birthday Card, as well as a small toy car."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/jvEikFU.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We even took the Bus to Walmart and were able to find a mini cake, cheesy farting Birthday Card, as well as a small toy car."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/IHiWm77.png" loading="lazy" onclick="openLightbox(this)" data-desc="We even took the Bus to Walmart and were able to find a mini cake, cheesy farting Birthday Card, as well as a small toy car."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/zqEWqUS.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We even took the Bus to Walmart and were able to find a mini cake, cheesy farting Birthday Card, as well as a small toy car."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/4iMzOw2.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We even took the Bus to Walmart and were able to find a mini cake, cheesy farting Birthday Card, as well as a small toy car."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/LlXyJbg.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="The car was an inside joke as my friend drove to Florida for the Disney Program, but was involved in an accident along the way, so he doesn't have a car here but instead was taking the Bus to Epcot which is how we all met him... so for his Birthday, we got him a new 'car'."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 30, 2026</span>
+                        <p class="memory-text">Explored Cast Connections finding cool merch like Emperor Zurg, then bused to Walmart to secure birthday supplies and a 'new car' for our friend.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/H23O1p2.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After attending one of the Disney Learning Classes, there was a Cluckerz Chicken Food Truck waiting outside so I got the Cluckerz Sandwich."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/tipMwg8.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="It was very tasty, so I enjoyed my snack while watching Pirates of the Caribbean at the Community Center before getting ready for work."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/zdHc364.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="It was very tasty, so I enjoyed my snack while watching Pirates of the Caribbean at the Community Center before getting ready for work."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/aIiPQlS.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="It was very tasty, so I enjoyed my snack while watching Pirates of the Caribbean at the Community Center before getting ready for work."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/MrUkkFw.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="It was very tasty, so I enjoyed my snack while watching Pirates of the Caribbean at the Community Center before getting ready for work."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/EOXIw6d.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="It was very tasty, so I enjoyed my snack while watching Pirates of the Caribbean at the Community Center before getting ready for work."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 29, 2026</span>
+                        <p class="memory-text">Tried the Cluckerz Chicken Sandwich and watched Pirates of the Caribbean at the Community Center before work.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item">
+                            <img src="https://i.imgur.com/szaoEXP.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend was making breakfast and invited me over, this was probably the best food I've had so far.">
+                        </div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/YGuZIlb.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/5o03koO.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/tubauih.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/TMeQZ0r.png" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/5OKTk04.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/6TpvAog.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/oSFPJDd.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/O6fnEEW.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/2C7U8oR.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/h9kfCcx.png" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/kYvsZWR.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Qw8HOPe.png" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/pGuUPOd.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/UkTObYL.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/WYIFXuo.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/e7d51e5.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/mufF51c.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/OSlNqhd.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/wfLomAM.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/G1i0L7M.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/dN9XH2T.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/quNMUaR.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/26oi4ok.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/3ywN8JD.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/cwvjwck.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/P7IzzDU.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/uCPi6FZ.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/MmkWVK5.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 28, 2026</span>
+                        <p class="memory-text">Started the day with an amazing homemade breakfast at a friend's place. Then we took the ferry to Disney Springs for a day of shopping, dodging security with my laptop, checking out the helium balloon, and devouring some tasty Poutine Fries.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/t53tZcP.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There's a really cool art piece here that has small items from a variety of Disney things throughout the years, all together it makes up the state of Florida."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/7kzrI9v.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There's a really cool art piece here that has small items from a variety of Disney things throughout the years, all together it makes up the state of Florida."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/eUAiHSl.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There's a really cool art piece here that has small items from a variety of Disney things throughout the years, all together it makes up the state of Florida."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/GawC867.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There's a really cool art piece here that has small items from a variety of Disney things throughout the years, all together it makes up the state of Florida."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/KkripNf.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There's a really cool art piece here that has small items from a variety of Disney things throughout the years, all together it makes up the state of Florida."></div>
+                        
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/HjCn8qm.png" loading="lazy" onclick="openLightbox(this)" data-desc="There was also free cereal being given out (I survive on these free food events)."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ls9Sqig.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also free cereal being given out (I survive on these free food events)."></div>
+                        
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/5g7YchX.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="And then my friends birthday was coming up so I got him some Twisted Tea, as well as looked around for cheesy Birthday Cards."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/xP5XPPy.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="And then my friends birthday was coming up so I got him some Twisted Tea, as well as looked around for cheesy Birthday Cards."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/fsumGFr.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="And then my friends birthday was coming up so I got him some Twisted Tea, as well as looked around for cheesy Birthday Cards."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/DBvzFbY.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="And then my friends birthday was coming up so I got him some Twisted Tea, as well as looked around for cheesy Birthday Cards."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/5BRdmnI.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="And then my friends birthday was coming up so I got him some Twisted Tea, as well as looked around for cheesy Birthday Cards."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 27, 2026</span>
+                        <p class="memory-text">Admired a Florida art piece made of Disney memorabilia, survived on free cereal events, and hunted for Twisted Tea and cheesy cards for a friend's upcoming birthday.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/LOH3sNs.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend and I went to Magic Kingdom to visit The Hall of Presidents as well as this Pirate Themed Bar called the Beak and Barrel. HoP had items throughout the years displayed that were donated from different Presidents throughout the years, as well as this really awesome Animatronic Show retelling a short history of the United States."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/DQ2IpoI.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend and I went to Magic Kingdom to visit The Hall of Presidents as well as this Pirate Themed Bar called the Beak and Barrel. HoP had items throughout the years displayed that were donated from different Presidents throughout the years, as well as this really awesome Animatronic Show retelling a short history of the United States."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/FGKatss.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend and I went to Magic Kingdom to visit The Hall of Presidents as well as this Pirate Themed Bar called the Beak and Barrel. HoP had items throughout the years displayed that were donated from different Presidents throughout the years, as well as this really awesome Animatronic Show retelling a short history of the United States."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/QBt7HHa.png" loading="lazy" onclick="openLightbox(this)" data-desc="My friend and I went to Magic Kingdom to visit The Hall of Presidents as well as this Pirate Themed Bar called the Beak and Barrel. HoP had items throughout the years displayed that were donated from different Presidents throughout the years, as well as this really awesome Animatronic Show retelling a short history of the United States."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/UURjQHM.png" loading="lazy" onclick="openLightbox(this)" data-desc="My friend and I went to Magic Kingdom to visit The Hall of Presidents as well as this Pirate Themed Bar called the Beak and Barrel. HoP had items throughout the years displayed that were donated from different Presidents throughout the years, as well as this really awesome Animatronic Show retelling a short history of the United States."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/b30I4Or.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend and I went to Magic Kingdom to visit The Hall of Presidents as well as this Pirate Themed Bar called the Beak and Barrel. HoP had items throughout the years displayed that were donated from different Presidents throughout the years, as well as this really awesome Animatronic Show retelling a short history of the United States."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/H9Ek7us.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend and I went to Magic Kingdom to visit The Hall of Presidents as well as this Pirate Themed Bar called the Beak and Barrel. HoP had items throughout the years displayed that were donated from different Presidents throughout the years, as well as this really awesome Animatronic Show retelling a short history of the United States."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/AtKf7Oc.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/MZtK0rO.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/6YntaIN.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/5NVGfjr.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/RgsiyXH.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/2VDNi1Z.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/8i379Wy.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/C3L75py.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/WR6uxtF.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/aGUExj0.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/c5GBglj.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/QHOJo9h.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/KEg4457.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/qZxdBAm.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/OHW14g2.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/KmauCGR.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Nm07LoF.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 24, 2026</span>
+                        <p class="memory-text">Visited the Hall of Presidents for a history lesson and an animatronic show, then hit the Beak and Barrel pirate bar for sea shanties with a talking parrot and pricey snacks.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/V7MpW5j.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Working as a Park Greeter includes alot of different things to remember (I still don't know the names or locations of anything yet), but it has been fun interacting with the guests as they enter the Magic Kingdom. Everyone else that I've trained with have all been very nice as well (two of them were also from Chicago)."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/cOqezxU.png" loading="lazy" onclick="openLightbox(this)" data-desc="After that, my friends and I went on a Side Quest to get some greasy sandwiches at FireHouse Subs."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Uh6e4W0.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After that, my friends and I went on a Side Quest to get some greasy sandwiches at FireHouse Subs."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/BWczcsu.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After that, my friends and I went on a Side Quest to get some greasy sandwiches at FireHouse Subs."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 23, 2026</span>
+                        <p class="memory-text">Working as a Park Greeter includes alot of different things to remember, but it has been fun interacting with guests. After training, we went on a Side Quest to FireHouse Subs.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/zOYrhSo.png" loading="lazy" onclick="openLightbox(this)" data-desc="I'm also taking two online college classes while working at Disney. So one of my teachers sent me the book and a note, which was very nice of him to do. A few minutes after this, I noticed a missed voicemail on my phone asking me if I was arriving to work today at 9am. The schedule app told me I had the day off, so I didn't arrive for my Training until 2 hours later."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/c2sP1BT.png" loading="lazy" onclick="openLightbox(this)" data-desc="I'm also taking two online college classes while working at Disney. So one of my teachers sent me the book and a note, which was very nice of him to do. A few minutes after this, I noticed a missed voicemail on my phone asking me if I was arriving to work today at 9am. The schedule app told me I had the day off, so I didn't arrive for my Training until 2 hours later."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/sreJVtG.png" loading="lazy" onclick="openLightbox(this)" data-desc="I'm also taking two online college classes while working at Disney. So one of my teachers sent me the book and a note, which was very nice of him to do. A few minutes after this, I noticed a missed voicemail on my phone asking me if I was arriving to work today at 9am. The schedule app told me I had the day off, so I didn't arrive for my Training until 2 hours later."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/YPSUDBu.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I'm also taking two online college classes while working at Disney. So one of my teachers sent me the book and a note, which was very nice of him to do. A few minutes after this, I noticed a missed voicemail on my phone asking me if I was arriving to work today at 9am. The schedule app told me I had the day off, so I didn't arrive for my Training until 2 hours later."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/aIkWhY8.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I may have been running extremely late, but I looked rather spiffy while doing so (luckily I didn't receive any negative points for this mistake)"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/NXLBHWH.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After work, my friends and I got chonki at a nearby Ramen place."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 22, 2026</span>
+                        <p class="memory-text">Juggling online classes and work led to a schedule mix-up (I was late!), but a spiffy outfit and post-work ramen made up for it.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-grid large-collection">
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/8qfWb4i.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Even though you need to get around with a car and there aren't any bike paths here, there is this giant bridge that lets you cross over to the nearby Shopping Center."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/TSypZ3Q.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Even though you need to get around with a car and there aren't any bike paths here, there is this giant bridge that lets you cross over to the nearby Shopping Center."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/PRXMbGo.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Even though you need to get around with a car and there aren't any bike paths here, there is this giant bridge that lets you cross over to the nearby Shopping Center."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/nzmQfcM.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Today I also went to get some comfortable work shoes (that were too expensive from an athletic running store), as well as a Skyline Coney and 4-Way Spaghetti."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/0ArVdEf.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Today I also went to get some comfortable work shoes (that were too expensive from an athletic running store), as well as a Skyline Coney and 4-Way Spaghetti."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/hB1rnyN.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Today I also went to get some comfortable work shoes (that were too expensive from an athletic running store), as well as a Skyline Coney and 4-Way Spaghetti."></div>
+                    </div>
+                    <div class="memory-content">
+                        <span class="memory-date">Jan 20, 2026</span>
+                        <p class="memory-text">Crossed the giant bridge to the shopping center for some new work shoes and treated myself to Skyline Chili.</p>
+                    </div>
+                </div>
 
                 <div class="memory-card filter-item" data-month="jan">
                     <div class="memory-media single gallery-item">
@@ -852,6 +1060,7 @@
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/llH9cLK.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/PtCCwgm.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/PBReMnU.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/8Xw7MXN.png" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Jan 15, 2026</span>
@@ -862,55 +1071,20 @@
                 <div class="memory-card filter-item" data-month="jan">
                     <div class="memory-grid large-collection">
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/zbSqlwt.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/h2ITU29.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/AsUW0O5.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/GrfFp6I.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ol4Qb78.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Zy3DbNr.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/2uCuuQT.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/kPo7kJT.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/FkGzr7d.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/nlZicgH.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/XCit4TB.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/ySgEiFd.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Qeaosak.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/cAdMIVy.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/tJnam31.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/UWz7tNw.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/9CyRWWa.png" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ObqBaOD.png" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/06s51QR.png" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/rSUKXGp.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/Dnil0g4.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/QrrGcrf.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/5onw4zT.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/xFDoga2.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/NN66WB3.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/q1I539b.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/w2RWY8h.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/jZxQ9f3.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/gWTMUvF.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/lPy1LXj.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/F0Hv6ei.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/sfXKkmM.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/7E2vxEU.png" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/99zm9bT.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/6UwXwNK.png" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/r8leMhJ.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/MkAGMB5.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/w9p9qJN.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/7teitSv.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/IdEWSxX.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/lEQI8Bb.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/PiL4oHE.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/KOFg60p.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/7OyV73x.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/idM5cdm.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/BgOmFUB.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/drUf8xL.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ZJ8tYCc.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ZMFY1Jv.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/BPLk2s1.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/Dhohk3G.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/HQSLyWU.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/KaTndvL.jpeg" loading="lazy" onclick="openLightbox(this)"></div>
@@ -1386,7 +1560,7 @@
             
             showMedia(element);
             lightbox.style.display = 'flex';
-            document.body.classList.add('no-scroll'); // Stop scrolling background
+            document.body.classList.add('no-scroll');
         }
 
         function updateNavButtons() {
@@ -1456,7 +1630,7 @@
             
             lightbox.style.display = 'none';
             lightboxVideo.pause(); 
-            document.body.classList.remove('no-scroll'); // Re-enable scrolling
+            document.body.classList.remove('no-scroll');
         }
 
         function handleLightboxClick(event) {
