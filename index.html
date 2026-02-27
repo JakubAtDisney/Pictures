@@ -10,691 +10,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+    <link rel="stylesheet" href="styles.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-main: #e0e0e0;
-            --text-muted: #aaaaaa;
-            --accent-gold: #ffd700;
-            --accent-blue: #4facfe;
-            --accent-orange: #ff9a9e;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Helper class to stop scrolling when lightbox is open */
-        body.no-scroll {
-            overflow: hidden;
-        }
-
-        /* CONTAINER */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-        }
-
-        /* HEADER / HERO */
-        .hero-screen {
-            min-height: 50vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 60px; /* Space for share button */
-            padding-bottom: 40px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 15px 0;
-            color: var(--accent-gold); 
-            background: linear-gradient(45deg, #ffd700, #ffaa00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-
-        .header-emoji {
-            font-size: 2.5rem;
-            -webkit-text-fill-color: initial; /* Keep emoji colors */
-        }
-
-        .tagline {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        .update-badge {
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 15px;
-            transition: transform 0.2s;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-        }
-
-        .update-badge:hover {
-            transform: scale(1.05);
-            background: rgba(255, 215, 0, 0.2);
-        }
-
-        .arrow {
-            color: var(--accent-blue);
-            font-size: 1rem;
-            margin-top: 30px;
-            font-weight: 600;
-            animation: bounce 2s infinite;
-            text-shadow: 0 0 10px rgba(79, 172, 254, 0.4);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        /* INFO CARD */
-        .info-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 20px 25px;
-            margin-top: 25px;
-            margin-bottom: 20px;
-            display: inline-flex;
-            flex-direction: column;
-            gap: 15px;
-            text-align: left;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .info-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #e0e0e0;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .info-icon {
-            font-size: 1.5rem;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .info-highlight {
-            color: var(--accent-blue);
-            font-weight: 700;
-            display: block;
-            margin-bottom: 2px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0.9;
-        }
-
-        /* GENERAL CARD STYLE */
-        .card, .blog-post {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            border: 1px solid #333;
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        .card-header-custom {
-            border-bottom: 1px solid #333;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-        }
-
-        .card-header-custom h2 {
-            font-size: 1.5rem;
-            color: #fff;
-        }
-
-        .story-content p {
-            line-height: 1.6;
-            margin-bottom: 15px;
-            color: #ddd;
-        }
-
-        .fun-fact {
-            background: rgba(79, 172, 254, 0.1);
-            border-left: 4px solid var(--accent-blue);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 0.95rem;
-        }
-
-        /* POST STYLES */
-        .post-header {
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .post-title {
-            color: var(--accent-gold);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .post-date {
-            color: #888;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .post-description {
-            color: #ddd;
-            margin-bottom: 20px;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .featured-img-container img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            border: 2px solid var(--accent-blue);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .featured-img-container img:hover {
-            transform: scale(1.02);
-        }
-
-        /* MEMORY FEED & GRIDS */
-        .memory-feed {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .memory-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #333;
-        }
-
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2px;
-            background: #000;
-        }
-
-        .memory-grid.large-collection {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .memory-media {
-            position: relative;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            aspect-ratio: 1/1; 
-            cursor: pointer;
-        }
-
-        .memory-media:hover img {
-            opacity: 0.9;
-        }
-
-        .memory-media img, .memory-media video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.2s;
-        }
-
-        .memory-media.full-width {
-            grid-column: span 2;
-            aspect-ratio: 16/9;
-        }
-
-        /* SINGLE IMAGE POSTS (No Crop) */
-        .memory-media.single {
-            aspect-ratio: auto !important;
-            height: auto;
-            min-height: 200px;
-            background: #111;
-        }
-
-        .memory-media.single img, .memory-media.single video {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            max-height: 80vh;
-        }
-
-        .memory-content {
-            padding: 15px;
-        }
-
-        .memory-date {
-            color: var(--accent-orange);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .memory-text {
-            color: #eee;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* VIDEO PLAY OVERLAY */
-        .play-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-
-        .play-overlay::after {
-            content: '▶';
-            font-size: 24px;
-            color: #fff;
-            margin-left: 4px;
-        }
-
-        /* SHARE BUTTON */
-        .share-btn-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-        }
-
-        .share-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--accent-gold);
-            padding: 8px 15px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .share-btn:hover {
-            background: rgba(240, 147, 43, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* SHARE MODAL */
-        .share-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            z-index: 10005;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .share-content {
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 90%;
-            width: 350px;
-            border: 1px solid #444;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            position: relative;
-        }
-
-        .share-content h3 { color: var(--accent-gold); margin-bottom: 20px; }
-        
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 4px solid #fff;
-        }
-
-        .share-link-box {
-            background: #111;
-            padding: 10px;
-            border-radius: 8px;
-            color: #aaa;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            word-break: break-all;
-            border: 1px solid #333;
-            user-select: text; 
-        }
-
-        .share-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .copy-btn { background: #333; color: #fff; }
-        .native-share-btn { background: var(--accent-blue); color: #000; }
-
-        .close-share {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5rem;
-            color: #888;
-            cursor: pointer;
-        }
-
-        /* FILTER MENU */
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 10px 5px;
-            margin-bottom: 30px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; 
-        }
-        .filter-bar::-webkit-scrollbar { display: none; } 
-
-        .filter-chip {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            color: #ccc;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .filter-chip.active {
-            background: var(--accent-gold);
-            color: #000;
-            font-weight: 700;
-            border-color: var(--accent-gold);
-        }
-
-        .hidden-post { display: none !important; }
-
-        /* LIGHTBOX */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .lightbox-img, .lightbox-video {
-            max-width: 95%;
-            max-height: 75vh;
-            border-radius: 4px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-        }
-
-        /* LIGHTBOX CAPTION */
-        .lightbox-caption {
-            margin-top: 15px;
-            color: #fff;
-            text-align: center;
-            font-size: 1rem;
-            max-width: 90%;
-            padding: 10px 15px;
-            background: rgba(30, 30, 30, 0.8);
-            border-radius: 12px;
-            line-height: 1.5;
-            border: 1px solid #444;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 10002;
-            padding: 10px; /* Bigger touch area */
-        }
-
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #fff;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 10px;
-            user-select: none;
-            z-index: 10001;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn:hover {
-            background: rgba(240, 147, 43, 0.9);
-        }
-
-        .prev-btn { left: 20px; }
-        .next-btn { right: 20px; }
-
-        /* BACK TO TOP */
-        #back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--accent-blue);
-            color: #000;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            z-index: 999;
-            display: none; 
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, opacity 0.2s;
-            opacity: 0.9;
-        }
-
-        #back-to-top:hover {
-            transform: scale(1.1);
-            opacity: 1;
-        }
-
-        /* BOOKMARK TOAST */
-        .bookmark-toast {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(30, 30, 30, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--accent-blue);
-            padding: 15px 20px;
-            border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 10002;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 90%;
-            max-width: 400px;
-            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .toast-content {
-            flex-grow: 1;
-            font-size: 0.9rem;
-            color: #fff;
-        }
-
-        .toast-close {
-            background: none;
-            border: none;
-            color: #888;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        footer {
-            text-align: center;
-            color: #777;
-            font-size: 0.9rem;
-            padding: 40px 20px;
-            margin-top: 40px;
-            border-top: 1px solid #222;
-        }
-
-        .signature {
-            font-family: 'Brush Script MT', cursive;
-            font-size: 1.5rem;
-            color: var(--accent-gold);
-            margin-top: 10px;
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-5 { animation-delay: 1.0s; }
-
-        /* --- MOBILE RESPONSIVENESS --- */
-        @media (max-width: 768px) {
-            .hero-screen { padding-top: 80px; } 
-            
-            /* HIDE ARROWS ON MOBILE - Use Swipe Instead */
-            .nav-btn { display: none !important; }
-            
-            .lightbox-img, .lightbox-video { max-width: 100%; max-height: 60vh; }
-            h1 { font-size: 2rem; } 
-            
-            .memory-grid.large-collection { grid-template-columns: repeat(3, 1fr); }
-            .memory-grid { grid-template-columns: repeat(2, 1fr); }
-            
-            .info-card { padding: 15px; width: 100%; }
-            .info-row { font-size: 0.95rem; }
-            
-            .share-btn-container { top: 15px; right: 15px; }
-        }
-    </style>
 </head>
 <body>
 
@@ -708,43 +28,17 @@
 
         <header class="hero-screen">
             <div class="hero-content">
-                
                 <a href="#disney-feed" class="update-badge">
                     📸 New Pics Added Feb 9 👇
                 </a>
-
                 <h1>Jakub's Internship Gallery <span class="header-emoji">🏰</span></h1>
-                
                 <p class="tagline">Check back here for updates from Florida</p>
-                
                 <div class="info-card">
-                    <div class="info-row">
-                        <span class="info-icon">🎓</span>
-                        <div>
-                            <span class="info-highlight">Program</span>
-                            Disney College Program Internship
-                        </div>
-                    </div>
-                    
-                    <div class="info-row">
-                        <span class="info-icon">📍</span>
-                        <div>
-                            <span class="info-highlight">Location</span>
-                            Walt Disney World, Orlando FL
-                        </div>
-                    </div>
-                    
-                    <div class="info-row">
-                        <span class="info-icon">📅</span>
-                        <div>
-                            <span class="info-highlight">Duration</span>
-                            Jan 12 - Aug 13, 2026
-                        </div>
-                    </div>
+                    <div class="info-row"><span class="info-icon">🎓</span><div><span class="info-highlight">Program</span>Disney College Program Internship</div></div>
+                    <div class="info-row"><span class="info-icon">📍</span><div><span class="info-highlight">Location</span>Walt Disney World, Orlando FL</div></div>
+                    <div class="info-row"><span class="info-icon">📅</span><div><span class="info-highlight">Duration</span>Jan 12 - Aug 13, 2026</div></div>
                 </div>
-
             </div>
-            
             <div class="arrow">▼ Scroll Down For The Photo Gallery ▼</div>
         </header>
 
@@ -753,13 +47,8 @@
                 <h2>👋 Howdy Howdy, Jakub Here!</h2>
             </div>
             <div class="story-content">
-                <p>
-                    Thank You everyone that made working at Kohls a spiffy experience during my time as a seasonal employee. I had fun learning new things and it was all thanks to the people I worked with each day that made it a hoot.
-                </p>
-                
-                <div class="fun-fact">
-                    <strong>💡 Fun Fact:</strong> My internship ends Aug 2026... so if anyone still remembers me by then, or if Kohl's is looking to bring me back, then worry not as I shall return to work here once more!
-                </div>
+                <p>Thank You everyone that made working at Kohls a spiffy experience during my time as a seasonal employee. I had fun learning new things and it was all thanks to the people I worked with each day that made it a hoot.</p>
+                <div class="fun-fact"><strong>💡 Fun Fact:</strong> My internship ends Aug 2026... so if anyone still remembers me by then, or if Kohl's is looking to bring me back, then worry not as I shall return to work here once more!</div>
             </div>
         </section>
 
@@ -776,9 +65,7 @@
                 <h3 class="post-title">Disney Adventures</h3>
                 <span class="post-date">JAN 2026 - Present</span>
             </div>
-            <p class="post-description">
-                The next chapter begins! Moving to Florida and starting the Disney College Program.
-            </p>
+            <p class="post-description">The next chapter begins! Moving to Florida and starting the Disney College Program.</p>
             
             <div class="memory-feed">
 
@@ -835,9 +122,7 @@
 
                 <div class="memory-card filter-item" data-month="jan">
                     <div class="memory-grid large-collection">
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/szaoEXP.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend was making breakfast and invited me over, this was probably the best food I've had so far.">
-                        </div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/szaoEXP.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend was making breakfast and invited me over, this was probably the best food I've had so far."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/YGuZIlb.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/5o03koO.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/tubauih.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Then the 3 of us went to visit Disney Springs, which is a giant Shopping Mall Center near Disney World. We had to take the small ferry just to get there and I was even screened by security for bringing my laptop with me (I forgot to leave my backpack at home), but aside for that there was this 'helium powered balloon' (that I'll have to revisit later), some really spiffy stores, as well as these real tasty Poutine Fries."></div>
@@ -925,7 +210,7 @@
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Jan 24, 2026</span>
-                        <p class="memory-text">My friend and I went to Magic Kingdom to visit The Hall of Presidents as well as this Pirate Themed Bar called the Beak and Barrel. HoP had items throughout the years displayed that were donated from different Presidents throughout the years, as well as this really awesome Animatronic Show retelling a short history of the United States. Whereas for the Bar, you need a reservation to get inside but it was very cheesy. All the Cast Members were dressed in Pirate Costumes and there was even a talking parrot that would get the audience to sing some Sea Shanty's together. The entire atmosphere was really cool, but the food/drinks were quite expensive.</p>
+                        <p class="memory-text">Visited the Hall of Presidents for a history lesson and an animatronic show, then hit the Beak and Barrel pirate bar for sea shanties with a talking parrot and pricey snacks.</p>
                     </div>
                 </div>
 
@@ -987,12 +272,12 @@
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/EF11W14.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/8so0AW0.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/e8AZtPH.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/yYU151T.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/HHza3eb.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/nL2FDwW.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/fLT2UXu.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/j1DOgV9.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/CmJ3wtW.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/k0CXzLM.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/uot45Ry.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/3S7JSUq.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/AMabrfo.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/QwLxiWd.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
@@ -1018,8 +303,8 @@
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/VjCyVPo.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/OCfMgBB.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/uhwv5PH.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/79hFumX.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/2g2Zymg.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/OMXIVr2.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ii6i0wt.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/3PlBJZO.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/tWdiepP.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent a day at Animal Kingdom! We went on a safari seeing giraffes, elephants, rhinos, and lions up close, then traveled back in time on the DINOSAUR ride. We also climbed the Yeti on Expedition Everest, got soaked on the Kali River Rapids, and took plenty of photos with the Tree of Life and the golden character statues (like Pumbaa!). As well as grabbed a classic Mickey Premium Ice Cream Bar."></div>
                     </div>
@@ -1052,14 +337,14 @@
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/qlQ9O3T.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/lyCPC3x.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/UCfrOjK.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/FZO54qb.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/givSOsj.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/EF11W14.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/8so0AW0.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/p9npaak.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/16v47gW.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/llH9cLK.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/PtCCwgm.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
-                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/PBReMnU.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/2zhfzG6.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/8Xw7MXN.png" loading="lazy" onclick="openLightbox(this)" data-desc="We spent the day park hopping between Epcot and Hollywood Studios! We toured the World Showcase, posing with the totem poles in Canada, squeezing into red phone booths in the UK, and visiting the Torii gate in Japan and the Germany pavilion. After grabbing some food, we headed to Hollywood Studios to see the giant guitar at Rock 'n' Roller Coaster, explore Star Wars: Galaxy's Edge (featuring the Millennium Falcon and Stormtroopers), and survive the drop on the Tower of Terror"></div>
                     </div>
                     <div class="memory-content">
@@ -1069,6 +354,10 @@
                 </div>
 
                 <div class="memory-card filter-item" data-month="jan">
+                    <div class="memory-content" style="border-bottom: 1px solid #333; margin-bottom: 2px;">
+                        <span class="memory-date">Jan 14, 2026</span>
+                        <p class="memory-text">Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air).</p>
+                    </div>
                     <div class="memory-grid large-collection">
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/zbSqlwt.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/XCit4TB.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
@@ -1094,34 +383,20 @@
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/wejmSYO.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/hxU7Sj1.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/6MSpuL7.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/V57wIpR.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/YCXEZbN.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/lsnVaAD.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/BfJvxUX.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air)."></div>
-                    </div>
-                    <div class="memory-content">
-                        <span class="memory-date">Jan 14, 2026</span>
-                        <p class="memory-text">Now that I had my tickets, the plan was to get to Disney World right as they open but I ended up doing homework until 3am and didn't arrive until around 10am. Either way, it was my first time going to Disney World so I went to Magic Kingdom. There is too much footage and images to have a description of them all so here are the pictures all grouped together. It was real cheesy but I had a hoot, may or may not have even had some tears during the Fireworks (wasn't expecting that but I swear there was dust in the air).</p>
                     </div>
                 </div>
 
                 <div class="memory-card filter-item" data-month="jan">
                     <div class="memory-grid large-collection">
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/nyqwkUs.jpeg" loading="lazy" onclick="openLightbox(this)" 
-                                 data-desc="After getting my free 3 Day ParkHopper Passes for Disney World all sorted out, I met a new friend in line who joined me at the Welcome To Florida Event Party going on. They had a giant life size gator (totally not an inflatable slide), free pizza, stickers, and a photo spot.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/dCPOMhR.jpeg" loading="lazy" onclick="openLightbox(this)" 
-                                 data-desc="After getting my free 3 Day ParkHopper Passes for Disney World all sorted out, I met a new friend in line who joined me at the Welcome To Florida Event Party going on. They had a giant life size gator (totally not an inflatable slide), free pizza, stickers, and a photo spot.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/gI0dxEe.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="This guy at the party had a parrot hat.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/XbMHC87.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="You would be crazy to think that I didn't go on the giant gator slide.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/OZ7DmSO.png" loading="lazy" onclick="openLightbox(this)" data-desc="You would be crazy to think that I didn't go on the giant gator slide.">
-                        </div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/nyqwkUs.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After getting my free 3 Day ParkHopper Passes for Disney World all sorted out, I met a new friend in line who joined me at the Welcome To Florida Event Party going on. They had a giant life size gator (totally not an inflatable slide), free pizza, stickers, and a photo spot."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/dCPOMhR.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After getting my free 3 Day ParkHopper Passes for Disney World all sorted out, I met a new friend in line who joined me at the Welcome To Florida Event Party going on. They had a giant life size gator (totally not an inflatable slide), free pizza, stickers, and a photo spot."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/gI0dxEe.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="This guy at the party had a parrot hat."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/XbMHC87.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="You would be crazy to think that I didn't go on the giant gator slide."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/OZ7DmSO.png" loading="lazy" onclick="openLightbox(this)" data-desc="You would be crazy to think that I didn't go on the giant gator slide."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/Trup0sx.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also a character meet & greet, but you can only pick one group of characters to take a picture with."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/MBSPf2t.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also a character meet & greet, but you can only pick one group of characters to take a picture with."></div>
                         <div class="memory-media gallery-item"><img src="https://i.imgur.com/pqTtAsk.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="There was also a character meet & greet, but you can only pick one group of characters to take a picture with."></div>
@@ -1136,24 +411,12 @@
 
                 <div class="memory-card filter-item" data-month="jan">
                     <div class="memory-grid large-collection">
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/QA1r4M4.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Once everything was finished for the day, I walked about 10 minutes to the nearest Target to get myself some survival food. Nothing like Oatmeal, Bananas, Bread, and Peanut Butter for $13.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/hbz2knO.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I have 3 roommates in my Dorm who are all very nice and were sharing all kinds of tips on how to get around here. They are from Peru, Canada, and Miami. My room has a bed, cabinet, closet, safety box (I brought a lock), and my own bathroom/shower. It's very nice and I was easily able to unpack everything.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/Ezdolyt.png" loading="lazy" onclick="openLightbox(this)" data-desc="After probably 1.5 hours of waiting, getting my information checked, being fingerprinted, taking my ID Picture, and receiving my Entry Pass... I was finally able to get my Dorm Room where I'll be staying.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/pzpuemt.png" loading="lazy" onclick="openLightbox(this)" data-desc="About 5 minutes before I was about to Check Out of the Hotel Room, my friend calls me saying he lost his wallet. I found it in the room but had to drop off my luggage first or I'll be late. I ended up Ubering to give my friend his wallet, Ubering back to drop off my luggage, then Ubering right back a few minutes after to start my Check In. Luckily there were alot of people arriving for the program today, so being late was fine (my friend also paid me back for those Uber rides).">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/N0W2Cv2.png" loading="lazy" onclick="openLightbox(this)" data-desc="My friend had his Check In time at 8am whereas I had mine at 10.20am, so he Ubered to the Flamingo Crossing Village (which is where we'll be staying), while I stayed to clean up the Hotel Room and get ready.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/2mfWMDm.png" loading="lazy" onclick="openLightbox(this)" data-desc="I made sure to eat whatever I could at the Hotel Breakfast as I wasn't sure when my next meal may be. Then I ended up having to explode the toilet a few times right after.">
-                        </div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/QA1r4M4.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Once everything was finished for the day, I walked about 10 minutes to the nearest Target to get myself some survival food. Nothing like Oatmeal, Bananas, Bread, and Peanut Butter for $13."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/hbz2knO.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I have 3 roommates in my Dorm who are all very nice and were sharing all kinds of tips on how to get around here. They are from Peru, Canada, and Miami. My room has a bed, cabinet, closet, safety box (I brought a lock), and my own bathroom/shower. It's very nice and I was easily able to unpack everything."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Ezdolyt.png" loading="lazy" onclick="openLightbox(this)" data-desc="After probably 1.5 hours of waiting, getting my information checked, being fingerprinted, taking my ID Picture, and receiving my Entry Pass... I was finally able to get my Dorm Room where I'll be staying."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/pzpuemt.png" loading="lazy" onclick="openLightbox(this)" data-desc="About 5 minutes before I was about to Check Out of the Hotel Room, my friend calls me saying he lost his wallet. I found it in the room but had to drop off my luggage first or I'll be late. I ended up Ubering to give my friend his wallet, Ubering back to drop off my luggage, then Ubering right back a few minutes after to start my Check In. Luckily there were alot of people arriving for the program today, so being late was fine (my friend also paid me back for those Uber rides)."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/N0W2Cv2.png" loading="lazy" onclick="openLightbox(this)" data-desc="My friend had his Check In time at 8am whereas I had mine at 10.20am, so he Ubered to the Flamingo Crossing Village (which is where we'll be staying), while I stayed to clean up the Hotel Room and get ready."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/2mfWMDm.png" loading="lazy" onclick="openLightbox(this)" data-desc="I made sure to eat whatever I could at the Hotel Breakfast as I wasn't sure when my next meal may be. Then I ended up having to explode the toilet a few times right after."></div>
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Jan 12, 2026</span>
@@ -1163,24 +426,12 @@
 
                 <div class="memory-card filter-item" data-month="jan">
                     <div class="memory-grid large-collection">
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/9w3RDbT.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend from school was also doing the Disney Program and arrived earlier that day after a 40 hour Amtrak Train ride. I made sure to have booked this room early at the TownePlace Suites Hotel for the night. Then we celebrated with some pizza.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/0Rrr2Z5.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After almost 3 hours of flying, I have made it to the Orlando Airport. It was strange to be in 80 degree weather after just leaving Chicago where it was 30 degrees only a few hours before.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/ecwlsHs.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I almost missed the flight too as I forgot I had to still Check In to get my seat and ended up waiting until the sign read 'Boarding Complete', luckily the workers there were able to get me the last seat as the entire plane was completely full.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/1P4uH69.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Apparently my 'Free Carry On' bag was too large for O'Hare's Dimensions so I had to pay an extra $45 to make it a Checked Bag. Then I waited at Terminal K9 for my flight.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/tgNH2Ia.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I had everything needed to spend 7 months in Florida and was packing my luggage until 4am.">
-                        </div>
-                        <div class="memory-media gallery-item">
-                            <img src="https://i.imgur.com/Ym7nUD2.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Went to make one last Amazon Return at Kohls before heading to O'Hare Airport.">
-                        </div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/9w3RDbT.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="My friend from school was also doing the Disney Program and arrived earlier that day after a 40 hour Amtrak Train ride. I made sure to have booked this room early at the TownePlace Suites Hotel for the night. Then we celebrated with some pizza."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/0Rrr2Z5.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="After almost 3 hours of flying, I have made it to the Orlando Airport. It was strange to be in 80 degree weather after just leaving Chicago where it was 30 degrees only a few hours before."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/ecwlsHs.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I almost missed the flight too as I forgot I had to still Check In to get my seat and ended up waiting until the sign read 'Boarding Complete', luckily the workers there were able to get me the last seat as the entire plane was completely full."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/1P4uH69.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Apparently my 'Free Carry On' bag was too large for O'Hare's Dimensions so I had to pay an extra $45 to make it a Checked Bag. Then I waited at Terminal K9 for my flight."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/tgNH2Ia.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="I had everything needed to spend 7 months in Florida and was packing my luggage until 4am."></div>
+                        <div class="memory-media gallery-item"><img src="https://i.imgur.com/Ym7nUD2.jpeg" loading="lazy" onclick="openLightbox(this)" data-desc="Went to make one last Amazon Return at Kohls before heading to O'Hare Airport."></div>
                     </div>
                     <div class="memory-content">
                         <span class="memory-date">Jan 11, 2026</span>
