@@ -117,7 +117,7 @@ function showMedia(element) {
         captionEl.style.display = 'none';
     }
 
-    const src = element.tagName === 'VIDEO' ? element.getAttribute('src') : element.src;
+    const src = element.tagName === 'VIDEO' ? element.getAttribute('src') : (element.getAttribute('data-highres') || element.src);
     const isVideo = element.tagName === 'VIDEO' || src.endsWith('.mp4');
 
     if (isVideo) {

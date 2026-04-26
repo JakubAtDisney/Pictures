@@ -51,7 +51,10 @@ h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 15px; color: var(--acce
 
 /* MEMORY FEED & GRIDS */
 .memory-feed { display: flex; flex-direction: column; gap: 30px; }
-.memory-card { background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+.memory-card { background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; border: 1px solid #333; 
+    content-visibility: auto; /* MASSIVE PERFORMANCE BOOST */
+    contain-intrinsic-size: 600px;
+}
 .memory-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: #000; }
 .memory-grid.large-collection { grid-template-columns: repeat(3, 1fr); }
 .memory-media { position: relative; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; aspect-ratio: 1/1; cursor: pointer; }
