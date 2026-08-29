@@ -182,3 +182,45 @@ function handleSwipe() {
     if (touchEndX < touchStartX - 50) changeImage(1); 
     if (touchEndX > touchStartX + 50) changeImage(-1); 
 }
+
+// --- NEW SEARCH FUNCTION ---
+function searchPosts() {
+    const query = document.getElementById('search-bar').value.toLowerCase();
+    const memoryCards = document.querySelectorAll('.memory-card');
+    
+    // Check individual memory cards
+    memoryCards.forEach(card => {
+        const textContent = card.innerText.toLowerCase();
+        const mediaItems = card.querySelectorAll('[data-desc]');
+        let descContent = '';
+        
+        // Grab all hidden image descriptions in the card
+        mediaItems.forEach(item => {
+            descContent += (item.getAttribute('data-desc') || '').toLowerCase() + ' ';
+        });
+        
+        if (textContent.includes(query) || descContent.includes(query)) {
+            card.classList.remove('hidden-search');
+        } else {
+            card.classList.add('hidden-search');
+        }
+    });
+
+    // Check parent blog posts to hide them if all their cards are hidden
+    const blogPosts = document.querySelectorAll('.blog-post');
+    blogPosts.forEach(post => {
+        const postHeader = post.querySelector('.post-header')?.innerText.toLowerCase() || '';
+        const postDesc = post.querySelector('.post-description')?.innerText.toLowerCase() || '';
+        const visibleCards = post.querySelectorAll('.memory-card:not(.hidden-search)');
+        
+        // If the main title/description matches, show everything inside it
+        if (postHeader.includes(query) || postDesc.includes(query)) {
+            post.classList.remove('hidden-search');
+            post.querySelectorAll('.memory-card').forEach(c => c.classList.remove('hidden-search'));
+        } else if (visibleCards.length === 0) {
+            post.classList.add('hidden-search'); // Hide post if empty
+        } else {
+            post.classList.remove('hidden-search');
+        }
+    });
+}
