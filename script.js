@@ -183,7 +183,6 @@ function handleSwipe() {
     if (touchEndX > touchStartX + 50) changeImage(-1); 
 }
 
-// --- NEW SEARCH FUNCTION ---
 function searchPosts() {
     const query = document.getElementById('search-bar').value.toLowerCase();
     const memoryCards = document.querySelectorAll('.memory-card');
